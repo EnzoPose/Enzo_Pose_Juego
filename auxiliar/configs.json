@@ -1,0 +1,46 @@
+{
+    "Sprites": {
+        "Player": {
+            "idle": [
+                "assets\\img\\Player\\Idle\\0.png",
+                "assets\\img\\Player\\Idle\\1.png",
+                "assets\\img\\Player\\Idle\\2.png"
+            ],
+            "walk": [
+                "assets\\img\\Player\\Walk\\0.png",
+                "assets\\img\\Player\\Walk\\1.png",
+                "assets\\img\\Player\\Walk\\2.png",
+                "assets\\img\\Player\\Walk\\3.png",
+                "assets\\img\\Player\\Walk\\4.png",
+                "assets\\img\\Player\\Walk\\5.png",
+                "assets\\img\\Player\\Walk\\6.png",
+                "assets\\img\\Player\\Walk\\7.png"
+            ],
+            "jump": [ 
+                "assets\\img\\Player\\Jump\\0.png",
+                "assets\\img\\Player\\Jump\\1.png"
+            ],
+            "attack": [
+                "assets\\img\\Player\\Attack\\0.png",
+                "assets\\img\\Player\\Attack\\1.png",
+                "assets\\img\\Player\\Attack\\2.png"
+            ]
+        },
+        "Enemy": {},
+        "Boss": {},
+        "Items": {},
+        "Platforms":0
+
+    },
+
+    "Stats":{ 
+        "stage_1": 1,
+
+        "stage_2": 2,
+
+        "stage_3": 3,
+
+        "Animations":1
+    }
+
+}
