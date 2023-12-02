@@ -1,4 +1,5 @@
 import pygame as pg
+import json
 
 class SurfaceManager:
 
@@ -29,3 +30,14 @@ def resize_images(image_list,W,H):
     for i in range(len(image_list)):
         image_list[i] = pg.transform.scale(image_list[i],(W,H))
     return image_list
+
+def import_json(path):
+    try:
+        with open(path,"r",encoding="utf-8") as archivo_json:
+            data = json.load(archivo_json)
+        print("Se cargaron los datos")
+        return data
+    except FileNotFoundError:
+        print(f"El {path} no se encontro")
+    except Exception as e:
+        print(f"Error al cargar el archivo {str(e)}")

@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from UI.GUI_widget import *
+from GUI.UI.GUI_widget import Widget
 
 FPS = 18
     
@@ -22,19 +22,19 @@ class Button_Image(Widget):
         
         aux_image = pygame.image.load(path_image)
         aux_image = pygame.transform.scale(aux_image,(w,h))
-        self._slave = aux_image
+        self.slave = aux_image
         
         self.isclicked = False
         self.contador_click = 0
         
         self.render()
         
-     
- 
+
+
     def render(self):
         image_text = self._font.render(self._text, True, self._font_color, self._color_background)
         
-        self.slave_rect = self._slave.get_rect()
+        self.slave_rect = self.slave.get_rect()
 
         self.slave_rect.x = self._x
         self.slave_rect.y = self._y
@@ -51,12 +51,12 @@ class Button_Image(Widget):
         diferencia_horizontal = media_horizontal - media_texto_horizontal 
         diferencia_vertical = media_vertical - media_texto_vertical
         
-        self._slave.blit(image_text,(diferencia_horizontal,diferencia_vertical))
+        self.slave.blit(image_text,(diferencia_horizontal,diferencia_vertical))
     
     def update(self, lista_eventos):
         self.isclicked = False
         if self.contador_click > FPS/2:
-            
+
             for evento in lista_eventos:
                 if evento.type == pygame.MOUSEBUTTONDOWN:
                     if self.slave_rect_collide.collidepoint(evento.pos):

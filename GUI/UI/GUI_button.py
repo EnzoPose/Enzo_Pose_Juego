@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from UI.GUI_widget import *
+from GUI.UI.GUI_widget import Widget
 
 class Button(Widget):
     def __init__(self, screen,master_x,master_y, x,y,w,h,color_background,color_border, onclick, onclick_param, text, font, font_size, font_color):

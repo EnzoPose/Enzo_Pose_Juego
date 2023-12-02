@@ -1,6 +1,6 @@
 DEBUG = False
 
-def cambiar_modo():
+def change_mode():
     global DEBUG
     DEBUG = not DEBUG
 

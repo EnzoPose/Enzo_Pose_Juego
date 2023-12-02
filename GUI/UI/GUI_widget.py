@@ -1,7 +1,7 @@
 import pygame
 class Widget:
     def __init__(self, screen: pygame.Surface, x: int, y: int, w: int, h:int, color_background = "Black", color_border = "Red", 
-                 border_size: int = -1):
+                border_size: int = -1):
         
         self._master = screen
         self._x = x
@@ -10,7 +10,7 @@ class Widget:
         self._h = h
         self._color_background = color_background
         self._color_border = color_border
-        self._slave = None
+        self.slave = None 
         self.slave_rect = None
         self.border_size = border_size
         
@@ -22,5 +22,5 @@ class Widget:
         pass
     
     def draw(self):
-        self._master.blit(self._slave,self.slave_rect)
+        self._master.blit(self.slave,self.slave_rect)
         pygame.draw.rect(self._master, self._color_border, self.slave_rect, self.border_size)

@@ -8,9 +8,9 @@ class Item(Object):
 
     def set_colition(self, flag:bool):
         self.colition = flag
+
     def get_colition(self):
         return self.colition
-
 
     def kill(self,items_list):
         self.colition = True

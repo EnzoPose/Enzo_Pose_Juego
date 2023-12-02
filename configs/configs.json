@@ -1,0 +1,245 @@
+{
+    "Stage_1": {
+        "Scenario": {
+            "Stage_name": "Level 1",
+            "Background": "assets\\img\\Backgrounds\\forest\\1920x1080.jpg",
+            "background_music": "./assets/music/Stage_1_bkg_music.mp3"
+        },
+        "Enemies": {
+            "Amount": 3,
+            "Life": 100,
+            "Damage": 20,
+            "Size": [100,100],
+            "Coords": [
+                [550,200],
+                [500,400],
+                [800,400]
+            ]
+        },
+        "Items": {
+            "Coins":{
+                "Amount": 8,
+                "Size": [30,30],
+                "Coords": [
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0]
+                ]
+            }
+        },
+        "Traps": {
+            "Size":[
+                [40,40]
+            ],
+            "Coords": [
+                [600,600]
+            ]
+        },
+        "Platforms":{
+            "Amount": 8,
+            "Surface": [
+                "assets\\img\\Platforms\\Metal_floor.png",
+                "assets\\img\\Platforms\\metal_column.png",
+                "assets\\img\\Platforms\\metal_column.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png"
+            ],
+            "Size":[
+                [1280,100],
+                [100,600],
+                [100,600],
+                [200,40],
+                [200,40],
+                [200,40],
+                [200,40],
+                [200,40]
+            ],
+            "Coords":[
+                [0,668],
+                [0,200],
+                [1180,200],
+                [300,180],
+                [300,500],
+                [550,350],
+                [800,180],
+                [800,500]
+            ]
+        },
+        "Player": {
+            "Life": 100,
+            "Damage": 25,
+            "Size": [40,80],
+            "Coords": [150,600]
+        }
+    },
+    "Stage_2": {
+        "Scenario": {
+            "stage_name": "Level 1",
+            "Background": "assets\\img\\Backgrounds\\forest\\1920x1080.jpg",
+            "background_music": "./assets/music/stage_1_bkg_music.mp3"
+        },
+        "Enemies": {
+            "Amount": 3,
+            "Life": 100,
+            "Damage": 20,
+            "Size": [100,100],
+            "Coords": [
+                [550,200],
+                [500,400],
+                [800,400]
+            ]
+        },
+        "Items": {
+            "Coins":{
+                "Amount": 8,
+                "Size": [30,30],
+                "Coords": [
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0]
+                ]
+            }
+        },
+        "Traps": {
+            "Size":[
+                [40,40]
+            ],
+            "Coords": [
+                [600,600]
+            ]
+        },
+        "Platforms":{
+            "Amount": 8,
+            "Surface": [
+                "assets\\img\\Platforms\\metal_column.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\Metal_floor.png",
+                "assets\\img\\Platforms\\metal_platform.png"
+            ],
+            "Size":[
+                [1280,100],
+                [200,40],
+                [200,40],
+                [200,40],
+                [200,40],
+                [200,40],
+                [100,600],
+                [100,600]
+            ],
+            "Coords":[
+                [0,668],
+                [300,180],
+                [300,450],
+                [550,300],
+                [800,180],
+                [800,450],
+                [0,200],
+                [1180,200]
+            ]
+        },
+        "Player": {
+            "Life": 100,
+            "Damage": 25,
+            "Size": [40,80],
+            "Coords": [150,600]
+        }
+    },
+    "Stage_3": {
+        "Scenario": {
+            "stage_name": "Level 1",
+            "Background": "assets\\img\\Backgrounds\\forest\\1920x1080.jpg",
+            "background_music": "./assets/music/stage_1_bkg_music.mp3"
+        },
+        "Enemies": {
+            "Amount": 3,
+            "Life": 100,
+            "Damage": 20,
+            "Size": [100,100],
+            "Coords": [
+                [550,200],
+                [500,400],
+                [800,400]
+            ]
+        },
+        "Items": {
+            "Coins":{
+                "Amount": 8,
+                "Size": [30,30],
+                "Coords": [
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0],
+                    [0,0]
+                ]
+            }
+        },
+        "Traps": {
+            "Size":[
+                [40,40]
+            ],
+            "Coords": [
+                [600,600]
+            ]
+        },
+        "Platforms":{
+            "Amount": 8,
+            "Surface": [
+                "assets\\img\\Platforms\\metal_column.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\metal_platform.png",
+                "assets\\img\\Platforms\\Metal_floor.png",
+                "assets\\img\\Platforms\\metal_platform.png"
+            ],
+            "Size":[
+                [1280,100],
+                [200,40],
+                [200,40],
+                [200,40],
+                [200,40],
+                [200,40],
+                [100,600],
+                [100,600]
+            ],
+            "Coords":[
+                [0,668],
+                [300,180],
+                [300,450],
+                [550,300],
+                [800,180],
+                [800,450],
+                [0,200],
+                [1180,200]
+            ]
+        },
+        "Player": {
+            "Life": 100,
+            "Damage": 25,
+            "Size": [40,80],
+            "Coords": [150,600]
+        }
+    }
+}

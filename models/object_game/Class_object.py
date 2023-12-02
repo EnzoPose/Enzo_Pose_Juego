@@ -2,7 +2,7 @@ import pygame
 from models.auxiliar import resize_images
 
 class Object:
-    def __init__(self,surface: pygame.Surface, initial_position: tuple, actions:dict, rect_diference:int , size:tuple):
+    def __init__(self,surface: pygame.Surface, initial_position: list, actions:dict, rect_diference:int , size:list):
         self.width = size[0]
         self.height = size[1]
 

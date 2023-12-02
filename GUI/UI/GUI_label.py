@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from UI.GUI_widget import *
+from GUI.UI.GUI_widget import Widget
 
 class Label(Widget):
     def __init__(self, screen,x,y,w,h,text, font, font_size, font_color, path_image):
@@ -11,17 +11,14 @@ class Label(Widget):
         self._text = text
         self._font = pygame.font.SysFont(font, font_size)
         self._font_color = font_color
-        #if path_image != "":
-        aux_image = pygame.image.load(path_image)
+
+        aux_image = pygame.image.load(path_image) 
         aux_image = pygame.transform.scale(aux_image,(w,h))
-        #else:
-            # aux_image = pygame.Surface((w,h))
-            #aux_image.set_alpha(0)#Transparente
             
-        self._slave = aux_image
+        self.slave = aux_image
         self.img_original = aux_image.copy()
             
-        self.slave_rect = self._slave.get_rect()
+        self.slave_rect = self.slave.get_rect()
 
         self.slave_rect.x = self._x
         self.slave_rect.y = self._y
@@ -29,7 +26,7 @@ class Label(Widget):
         self.render()
     
     def render(self):
-        self._slave.blit(self.img_original, (0, 0)) 
+        self.slave.blit(self.img_original, (0, 0)) 
         image_text = self._font.render(self._text, True, self._font_color)
         
         media_texto_horizontal = image_text.get_width() / 2
@@ -40,7 +37,7 @@ class Label(Widget):
         diferencia_horizontal = media_horizontal - media_texto_horizontal 
         diferencia_vertical = media_vertical - media_texto_vertical
         
-        self._slave.blit(image_text,(diferencia_horizontal,diferencia_vertical))
+        self.slave.blit(image_text,(diferencia_horizontal,diferencia_vertical))
     
     def set_text(self, text):
         self._text = text

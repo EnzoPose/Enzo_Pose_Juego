@@ -1,5 +1,6 @@
 import pygame as pg
 from models.charapter.charapter import Charapter
+from models.platform.class_patform import Platform
 from models.Items.class_item import Item
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 
@@ -100,6 +101,34 @@ class Player(Charapter):
                 item.kill(item_list)
                 self.score += 300
 
+    
+    def verify_colission_platforms(self, platforms_list:list[Platform]):
+        self.gravity_fall()
+        self.is_jumping = True
+        for platform in platforms_list:
+            if self.colliders["bottom"].colliderect(platform.colliders["top"]):
+                self.is_jumping = False
+                self.colliders["main"].bottom = platform.colliders["main"].top + 1
+                self.colliders["left"].bottom = self.colliders["main"].bottom
+                self.colliders["right"].bottom = self.colliders["main"].bottom
+                self.colliders["bottom"].bottom = self.colliders["main"].bottom 
+                self.colliders["top"].top = self.colliders["main"].top
+                self.displacement_y = 0
+
+
+
+            elif self.colliders["right"].colliderect(platform.colliders["left"]):
+                for collider_key in self.colliders:
+                    self.colliders[collider_key].right = platform.colliders["left"].left
+                self.colliders["left"].right = self.colliders["main"].left + self.colliders["left"].width 
+            
+            elif self.colliders["left"].colliderect(platform.colliders["right"]):
+                for collider_key in self.colliders:
+                    self.colliders[collider_key].left = platform.colliders["right"].right
+                self.colliders["right"].right = self.colliders["main"].right
+
+            elif self.colliders["top"].colliderect(platform.colliders["bottom"]):
+                self.displacement_y = 3
 
 
     def update(self,screen,platform_list,coin_list,enemy_list):

@@ -4,7 +4,7 @@ from models.platform.class_patform import Platform
 from models.constantes import ANCHO_VENTANA
 
 class Enemy(Charapter):
-    def __init__(self, surface: pg.surface, initial_position: tuple, animations: dict, rect_diference: int, size: int,life:int,damage:int):
+    def __init__(self, surface: pg.surface, initial_position: list, animations: dict, rect_diference: int, size: list,life:int,damage:int):
         super().__init__(surface, initial_position, animations, rect_diference, size,life,damage)
         
         self.last_shot = 0
@@ -13,8 +13,8 @@ class Enemy(Charapter):
         self.is_jumping = True
         self.is_alive = True
         self.is_looking_player = False
-        self.pov_rect = pg.rect.Rect(self.colliders["main"].left - 200, self.colliders["main"].top + 50 , 350,self.height) if not self.is_loking_right else \
-        pg.rect.Rect(self.colliders["main"].right + 200, self.colliders["main"].top + 50 , 350,self.height)
+        self.pov_rect = pg.rect.Rect(self.colliders["main"].left - 200, self.colliders["main"].top + 50 , 500,self.height) if not self.is_loking_right else \
+        pg.rect.Rect(self.colliders["main"].right + 200, self.colliders["main"].top + 50 , 500,self.height)
 
     def kill(self):
         self.is_alive = False
@@ -30,6 +30,15 @@ class Enemy(Charapter):
                 or self.colliders["left"].colliderect(platform.rect_for_collide_enemy_l):
                 self.is_loking_right = True
                 self.is_doing = "walk"
+            
+            elif self.colliders["bottom"].colliderect(platform.colliders["top"]):
+                self.is_jumping = False
+                self.colliders["main"].bottom = platform.colliders["main"].top + 1
+                self.colliders["left"].bottom = self.colliders["main"].bottom
+                self.colliders["right"].bottom = self.colliders["main"].bottom
+                self.colliders["bottom"].bottom = self.colliders["main"].bottom 
+                self.colliders["top"].top = self.colliders["main"].top
+                self.displacement_y = 0
 
     def verify_is_looking_player(self,player):
         if self.pov_rect.colliderect(player.colliders["main"]):
@@ -77,5 +86,5 @@ class Enemy(Charapter):
         self.verify_is_looking_player(enemy_list[0])
         self.event_management()
         self.check_collition_platform(platform_list)
-        super().verify_colission_platforms(platform_list)
+        # super().verify_colission_platforms(platform_list)
         super().update(screen,platform_list,enemy_list)

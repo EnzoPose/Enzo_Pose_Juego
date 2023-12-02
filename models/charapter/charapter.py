@@ -6,7 +6,7 @@ import pygame as pg
 
 class Charapter(Object):
 
-    def __init__(self, surface:pg.surface, initial_position: tuple ,animations:dict,rect_diference:int,size:int,life:int,damage:int):
+    def __init__(self, surface:pg.surface, initial_position: list ,animations:dict,rect_diference:int,size:list,life:int,damage:int):
         super().__init__(surface,initial_position,animations,rect_diference, size)
         
         self.life = life
@@ -22,7 +22,7 @@ class Charapter(Object):
 
         ##Attack
         self.is_shooting = False
-        self.projectile_list = []
+        self.projectile_list:list[Projectile] = []
         self.cadence = 200
 
 
@@ -55,33 +55,6 @@ class Charapter(Object):
     def move_x(self):
         super().move_x(self.speed_x)
 
-    def verify_colission_platforms(self, platforms_list:list[Platform]):
-        self.gravity_fall()
-        self.is_jumping = True
-        for platform in platforms_list:
-            if self.colliders["bottom"].colliderect(platform.colliders["top"]):
-                self.is_jumping = False
-                self.colliders["main"].bottom = platform.colliders["main"].top + 1
-                self.colliders["left"].bottom = self.colliders["main"].bottom
-                self.colliders["right"].bottom = self.colliders["main"].bottom
-                self.colliders["bottom"].bottom = self.colliders["main"].bottom 
-                self.colliders["top"].top = self.colliders["main"].top
-                self.displacement_y = 0
-
-
-
-            elif self.colliders["right"].colliderect(platform.colliders["left"]):
-                for collider_key in self.colliders:
-                    self.colliders[collider_key].right = platform.colliders["left"].left
-                self.colliders["left"].right = self.colliders["main"].left + self.colliders["left"].width 
-            
-            elif self.colliders["left"].colliderect(platform.colliders["right"]):
-                for collider_key in self.colliders:
-                    self.colliders[collider_key].left = platform.colliders["right"].right
-                self.colliders["right"].right = self.colliders["main"].right
-
-            elif self.colliders["top"].colliderect(platform.colliders["bottom"]):
-                self.displacement_y = 3
 
 
     def create_projectile(self,image_path,size):

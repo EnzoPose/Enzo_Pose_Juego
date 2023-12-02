@@ -1,0 +1,88 @@
+
+{
+    "Player": {
+        "idle": [
+            "assets\\img\\Player\\Idle\\0.png",
+            "assets\\img\\Player\\Idle\\1.png",
+            "assets\\img\\Player\\Idle\\2.png"
+        ],
+        "walk": [
+            "assets\\img\\Player\\Walk\\0.png",
+            "assets\\img\\Player\\Walk\\1.png",
+            "assets\\img\\Player\\Walk\\2.png",
+            "assets\\img\\Player\\Walk\\3.png",
+            "assets\\img\\Player\\Walk\\4.png",
+            "assets\\img\\Player\\Walk\\5.png",
+            "assets\\img\\Player\\Walk\\6.png",
+            "assets\\img\\Player\\Walk\\7.png"
+        ],
+        "jump": [ 
+            "assets\\img\\Player\\Jump\\0.png",
+            "assets\\img\\Player\\Jump\\1.png"
+        ],
+        "attack": [
+            "assets\\img\\Player\\Attack\\0.png",
+            "assets\\img\\Player\\Attack\\1.png",
+            "assets\\img\\Player\\Attack\\2.png"
+        ]
+    },
+    "Enemy": {
+        "walk": [
+            "assets\\img\\Enemy\\Walk\\0.png",
+            "assets\\img\\Enemy\\Walk\\1.png",
+            "assets\\img\\Enemy\\Walk\\2.png",
+            "assets\\img\\Enemy\\Walk\\3.png",
+            "assets\\img\\Enemy\\Walk\\4.png",
+            "assets\\img\\Enemy\\Walk\\5.png",
+            "assets\\img\\Enemy\\Walk\\6.png",
+            "assets\\img\\Enemy\\Walk\\7.png",
+            "assets\\img\\Enemy\\Walk\\8.png",
+            "assets\\img\\Enemy\\Walk\\9.png",
+            "assets\\img\\Enemy\\Walk\\10.png",
+            "assets\\img\\Enemy\\Walk\\11.png",
+            "assets\\img\\Enemy\\Walk\\12.png",
+            "assets\\img\\Enemy\\Walk\\13.png",
+            "assets\\img\\Enemy\\Walk\\14.png",
+            "assets\\img\\Enemy\\Walk\\15.png"
+        ],
+        "attack":[
+            "assets\\img\\Enemy\\Attack\\0.png",
+            "assets\\img\\Enemy\\Attack\\1.png",
+            "assets\\img\\Enemy\\Attack\\2.png",
+            "assets\\img\\Enemy\\Attack\\3.png",
+            "assets\\img\\Enemy\\Attack\\4.png"
+        ]
+    },
+    "Boss": {},
+    "Items": {
+        "Coin":{
+            "idle":[
+                "assets\\img\\Items\\Coin\\0.png",
+                "assets\\img\\Items\\Coin\\1.png",
+                "assets\\img\\Items\\Coin\\2.png",
+                "assets\\img\\Items\\Coin\\3.png",
+                "assets\\img\\Items\\Coin\\4.png",
+                "assets\\img\\Items\\Coin\\5.png",
+                "assets\\img\\Items\\Coin\\6.png",
+                "assets\\img\\Items\\Coin\\7.png",
+                "assets\\img\\Items\\Coin\\8.png",
+                "assets\\img\\Items\\Coin\\9.png",
+                "assets\\img\\Items\\Coin\\10.png",
+                "assets\\img\\Items\\Coin\\11.png",
+                "assets\\img\\Items\\Coin\\12.png",
+                "assets\\img\\Items\\Coin\\13.png",
+                "assets\\img\\Items\\Coin\\14.png"
+            ]
+        },
+        "Saw":{
+            "idle":[
+                "assets\\img\\Trap\\Saw\\0.png",
+                "assets\\img\\Trap\\Saw\\0.png",
+                "assets\\img\\Trap\\Saw\\0.png",
+                "assets\\img\\Trap\\Saw\\0.png",
+                "assets\\img\\Trap\\Saw\\0.png"
+
+            ]
+        }
+    }
+}
