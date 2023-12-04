@@ -29,7 +29,7 @@ class Form_settings_menu(Form):
         #     self.btn_play =  Button()
         # self.volume = pg.mixer.music.get_volume()
 
-        self.volume_slider = Slider(self.slave, x, y, 100, 200, 300, 10, self.volume, "Black", "White")
+        self.volume_slider = Slider(self.slave, x, y, 100, 250, 300, 10, self.volume, "Black", "White")
         self.btn_home = Button_Image(self.slave,x,y,50,100,80,80,onclick= self.button_home,onclick_param="lalala",path_image="GUI\Recursos\home.png")
         # self.volume_label = Label()
         # self.btn_return = Button_Image()

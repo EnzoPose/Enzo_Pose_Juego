@@ -168,29 +168,21 @@
             "background_music": "./assets/music/stage_1_bkg_music.mp3"
         },
         "Enemies": {
-            "Amount": 3,
-            "Life": 100,
-            "Damage": 20,
+            "Amount": 1,
+            "Life": 500,
+            "Damage": 25,
             "Size": [100,100],
             "Coords": [
-                [550,200],
-                [500,400],
-                [800,400]
+                [550,200]
             ]
         },
         "Items": {
             "Coins":{
-                "Amount": 8,
+                "Amount": 2,
                 "Size": [30,30],
                 "Coords": [
-                    [0,0],
-                    [0,0],
-                    [0,0],
-                    [0,0],
-                    [0,0],
-                    [0,0],
-                    [0,0],
-                    [0,0]
+                    [80,350],
+                    [1160,350]
                 ]
             }
         },
@@ -203,36 +195,21 @@
             ]
         },
         "Platforms":{
-            "Amount": 8,
+            "Amount": 3,
             "Surface": [
-                "assets\\img\\Platforms\\metal_column.png",
-                "assets\\img\\Platforms\\metal_platform.png",
-                "assets\\img\\Platforms\\metal_platform.png",
-                "assets\\img\\Platforms\\metal_platform.png",
-                "assets\\img\\Platforms\\metal_platform.png",
-                "assets\\img\\Platforms\\metal_platform.png",
                 "assets\\img\\Platforms\\Metal_floor.png",
+                "assets\\img\\Platforms\\metal_platform.png",
                 "assets\\img\\Platforms\\metal_platform.png"
             ],
             "Size":[
                 [1280,100],
                 [200,40],
-                [200,40],
-                [200,40],
-                [200,40],
-                [200,40],
-                [100,600],
-                [100,600]
+                [200,40]
             ],
             "Coords":[
                 [0,668],
-                [300,180],
-                [300,450],
-                [550,300],
-                [800,180],
-                [800,450],
-                [0,200],
-                [1180,200]
+                [0,520],
+                [1080,520]
             ]
         },
         "Player": {

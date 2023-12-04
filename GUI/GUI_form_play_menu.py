@@ -19,6 +19,7 @@ class Form_play(Form):
         bgd_img = pg.transform.scale(bgd_img,(self._master.get_width(),self._master.get_height()))
         self.bgd_img = bgd_img
         self.slave = img
+        
         self.score = 0
         self.player_data = {}
 
