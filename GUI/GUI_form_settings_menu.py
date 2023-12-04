@@ -6,29 +6,38 @@ from GUI.UI.GUI_label import Label
 from GUI.UI.GUI_button import Button
 from GUI.UI.GUI_button_image import Button_Image
 
-class Form_music_menu(Form):
-    def __init__(self, screen, x, y, w, h,path_image):
+
+class Form_settings_menu(Form):
+    def __init__(self, screen, x, y, w, h,path_image,path_bgd):
         super().__init__(screen, x, y, w, h)
         img = pg.image.load(path_image)
         img = pg.transform.scale(img,(w,h))
-        self.img = img
-        self.slave = img.copy()
+        self.img =img
+    
+        bgd_img =  pg.image.load(path_bgd)
+        bgd_img = pg.transform.scale(bgd_img,(self._master.get_width(),self._master.get_height()))
 
-        if pg.mixer.music.get_busy():
-            self.is_recording = True
-            self.btn_play = Button()
-        else:
-            self.is_recording = False
-            self.btn_play =  Button()
-        self.volume = pg.mixer.music.get_volume()
+        self.bgd_img = bgd_img
+        self.slave = img
+        
 
-        self.volume_slider = Slider()
-        self.volume_label = Label()
-        self.btn_return = Button_Image()
-        self.end_dialog()
-        self.widget_list = [self.btn_play,self.volume_label,self.volume_slider,self.btn_return]
+        # if pg.mixer.music.get_busy():
+        #     self.is_recording = True
+        #     self.btn_play = Button()
+        # else:
+        #     self.is_recording = False
+        #     self.btn_play =  Button()
+        # self.volume = pg.mixer.music.get_volume()
 
-    def button_home(self):
+        self.volume_slider = Slider(self.slave, x, y, 100, 200, 300, 10, self.volume, "Black", "White")
+        self.btn_home = Button_Image(self.slave,x,y,50,100,80,80,onclick= self.button_home,onclick_param="lalala",path_image="GUI\Recursos\home.png")
+        # self.volume_label = Label()
+        # self.btn_return = Button_Image()
+
+        self.widget_list.append(self.volume_slider)
+        self.widget_list.append(self.btn_home)
+
+    def button_home(self,txt):
         self.end_dialog()
     
     def button_play(self):
@@ -50,10 +59,11 @@ class Form_music_menu(Form):
 
     def update_volume(self):
         self.volume = self.volume_slider.value
-        self.volume_label.set_text(f"{round(self.volume * 100)}%")
+        # self.volume_label.set_text(f"{round(self.volume * 100)}%")
         pg.mixer.music.set_volume(self.volume)
 
     def update(self,event_list):
+        self._master.blit(self.bgd_img,(0,0))
         if self.verify_dialog_result():
             self.render()
             for widget in self.widget_list:

@@ -9,8 +9,8 @@ class Slider(Widget):
         
         self.color_circulo = color_circulo
 
-        self._slave = pygame.Surface((w, h))
-        self.slave_rect = self._slave.get_rect()
+        self.slave = pygame.Surface((w, h))
+        self.slave_rect = self.slave.get_rect()
 
         self.slave_rect.x = x
         self.slave_rect.y = y
@@ -32,7 +32,7 @@ class Slider(Widget):
         self.render()
     
     def render(self):
-        self._slave.fill(self._color_background)
+        self.slave.fill(self._color_background)
 
         
     def draw(self):
@@ -44,11 +44,11 @@ class Slider(Widget):
         if mouse_buttons[0]:
             mouse_pos = pygame.mouse.get_pos()
             if self.slave_rect_collide.collidepoint(mouse_pos):
-                valor = (mouse_pos[0] - self.slave_rect_collide.x) / self._slave.get_width()
+                valor = (mouse_pos[0] - self.slave_rect_collide.x) / self.slave.get_width()
                 
                 self.value = round(valor * 100) / 100 # redondeo el valor
                 
-                self.rectangulo_circulo.center = (self.slave_rect.x + self._slave.get_width() * self.value, self.slave_rect.centery)
+                self.rectangulo_circulo.center = (self.slave_rect.x + self.slave.get_width() * self.value, self.slave_rect.centery)
         self.draw()
 
     def get_value(self):

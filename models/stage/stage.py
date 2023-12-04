@@ -25,6 +25,7 @@ class Stage:
         background_surface = pg.image.load(self.stage_configs.get("Scenario").get("Background"))
         self.background_img = pg.transform.scale(background_surface,(self.w,self.h))
         self.win = False
+        self.is_paused = False
 
         self.player = Player(player_animations["idle"][0],self.player_configs.get("Coords"),player_animations,10,self.player_configs.get("Size"),self.player_configs.get("Life"),
                             self.player_configs.get("Damage"))
@@ -137,5 +138,6 @@ class Stage:
 
 
     def run(self):
-        self.update_screen()
-        self.check_win()
+        if not self.is_paused:
+            self.update_screen()
+            self.check_win()

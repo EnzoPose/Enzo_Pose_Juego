@@ -8,10 +8,15 @@ class Form_level_container(Form):
         level.screen = self.slave
         self.level = level
 
+        self.btn_back = Button_Image(self.slave, 0, 0, 1200, 300, 50, 50, r"GUI\Recursos\back.png", self.button_back,"lalala")
 
+        self.widget_list.append(self.btn_back)
 
+    def button_back(self,txt):
+        self.end_dialog()
 
     def update(self,event_list):
+
         self.level.run()
         if self.verify_dialog_result():
             for widget in self.widget_list:
