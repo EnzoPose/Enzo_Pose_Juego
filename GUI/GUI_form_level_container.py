@@ -22,7 +22,7 @@ class Form_level_container(Form):
         self.widget_list.append(self.btn_back)
         self.widget_list.append(self.btn_settings)
         
-        self.form_game_over = Form_game_over(self._master,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp",self.values)
+        self.form_game_over = Form_game_over(self._master,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp")
 
     def button_back(self,txt):
         self.end_dialog()
@@ -37,7 +37,7 @@ class Form_level_container(Form):
         
 
     def reset_level(self):
-        self.form_game_over = Form_game_over(self._master,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp",self.values)
+        self.form_game_over = Form_game_over(self._master,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp")
         self.level.__init__(self.slave,ANCHO_VENTANA,ALTO_VENTANA,self.values.current_level,self.values)
 
 
@@ -51,10 +51,9 @@ class Form_level_container(Form):
             self.slave.blit(self.txt_pause,(600,400))
         elif self.level.lost:
             self.show_dialog(self.form_game_over)
-            if self.values.reset_level:
-                self.values.reset_level = False
+            if self.form_game_over.reset_level:
                 self.reset_level()
-                print("entro")
+
 
 
     

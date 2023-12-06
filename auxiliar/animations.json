@@ -74,6 +74,14 @@
                 "assets\\img\\Items\\Coin\\14.png"
             ]
         },
+        "Potion":{
+            "idle":[
+                "assets\\img\\Items\\Potion\\0.png",
+                "assets\\img\\Items\\Potion\\1.png",
+                "assets\\img\\Items\\Potion\\2.png",
+                "assets\\img\\Items\\Potion\\3.png"
+            ]
+        },
         "Saw":{
             "idle":[
                 "assets\\img\\Trap\\Saw\\0.png",

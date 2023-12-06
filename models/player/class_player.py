@@ -115,7 +115,7 @@ class Player(Charapter):
                 self.score += item.score * random.randint(1,3)
                 self.life += item.health
 
-    def verify_colition_body_damage(self,item_list:list):
+    def verify_colition_body_damage(self,item_list:list):   
         for item in item_list:
             if self.colliders["main"].colliderect(item.colliders["main"]):
                 if not self.is_invencible:
@@ -170,7 +170,7 @@ class Player(Charapter):
                 self.is_invencible = False
 
 
-    def update(self,screen,platform_list,coin_list,enemy_list,trap_list,sounds_volume):
+    def update(self,screen,platform_list,coin_list,enemy_list,trap_list,potion_list,sounds_volume):
         self.set_sound_volume(sounds_volume)
         self.verify_screen_limit(ANCHO_VENTANA)
         self.verify_player_events()
@@ -180,6 +180,7 @@ class Player(Charapter):
         self.verify_colition_body_damage(trap_list)
         self.verify_colition_body_damage(enemy_list)
         self.verify_colition_coin(coin_list)
+        self.verify_colition_coin(potion_list)
 
         self.move_x()
         super().update(screen,platform_list,enemy_list)

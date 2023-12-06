@@ -22,3 +22,4 @@ enemy_animations["walk"],enemy_animations["walk_l"] = enemy_animations["walk_l"]
 enemy_animations["attack"],enemy_animations["attack_l"] = enemy_animations["attack_l"],enemy_animations["attack"]
 coin_animations = obtain_animations(data_animations.get("Items").get("Coin"))
 saw_animations = obtain_animations(data_animations.get("Items").get("Saw"))
+potion_animations = obtain_animations(data_animations.get("Items").get("Potion"))

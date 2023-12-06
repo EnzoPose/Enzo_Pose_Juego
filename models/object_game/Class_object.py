@@ -21,14 +21,14 @@ class Object:
 
         self.step_counter = 0
 
+
+
     def animate(self, animation_list,count_amountt):
         length = len(animation_list)
         if self.step_counter >= length:
             self.step_counter = 0
         self.surface = animation_list[int(self.step_counter)]
         self.step_counter += count_amountt
-
-
 
     def move_x(self, speed):
         for side in self.colliders:

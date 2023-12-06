@@ -15,6 +15,7 @@ class Form_settings_menu(Form):
         img = pg.transform.scale(img,(w,h))
         self.img = img
         self.values = values
+        
         bgd_img =  pg.image.load(path_bgd)
         bgd_img = pg.transform.scale(bgd_img,(self._master.get_width(),self._master.get_height()))
         self.bgd_img = bgd_img
@@ -104,7 +105,6 @@ class Form_settings_menu(Form):
         self.slave.blit(self.img,(0,0))
         
     def update(self,event_list):
-        self._master.blit(self.bgd_img,(0,0))
         if self.verify_dialog_result():
             self.render()
             for widget in self.widget_list:

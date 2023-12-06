@@ -6,7 +6,7 @@ from models.platform.class_patform import Platform
 from models.reward.reward import Reward
 from models.trap.trap import Trap
 from auxiliar.modo import *
-from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations
+from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations,potion_animations
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 from models.values import Values
 import random
@@ -27,6 +27,7 @@ class Stage:
         self.enemy_configs = self.stage_configs.get("Enemies")
         self.trap_configs = self.stage_configs.get("Traps")
         self.coin_configs = self.stage_configs.get("Items").get("Coins")
+        self.potion_configs = self.stage_configs.get("Items").get("Potions")
         
         self.w = w
         self.h = h
@@ -49,6 +50,7 @@ class Stage:
         self.coins = self.set_coins()
         self.platforms = self.set_platforms()
         self.traps = self.set_traps()
+        self.potions = self.set_potions()
 
 
 
@@ -81,10 +83,16 @@ class Stage:
     def set_traps(self)-> list[Trap]:
         trap_list = []
         for i in range(self.trap_configs.get("Amount")):
-            trap_list.append(Trap(saw_animations["idle"][0],self.trap_configs.get("Coords")[i],saw_animations,0,self.trap_configs.get("Size")[i],self.trap_configs.get("Damage")))
+            trap_list.append(Trap(saw_animations["idle"][0],self.trap_configs.get("Coords")[i],saw_animations,0,self.trap_configs.get("Size"),self.trap_configs.get("Damage")))
         return trap_list
 
-    
+    def set_potions(self)-> list[Reward]:
+        potion_configs = self.stage_configs.get("Items").get("Potion")
+        potion_list = []
+        for i in range(potion_configs.get("Amount")):
+            potion_list.append(Reward(potion_animations["idle"][0],potion_configs.get("Coords")[i],potion_animations,0,potion_configs.get("Size"),0,potion_configs.get("Health")))
+        return potion_list
+
     def check_win(self):
         match self.stage_name:
             case 'Stage_1' | 'Stage_2' | 'Stage_3':
@@ -111,6 +119,9 @@ class Stage:
 
         for coin in self.coins:
             pg.draw.rect(self.screen,"Red",coin.rect,2)
+    
+        for potion in self.potions:
+            pg.draw.rect(self.screen,"Red",potion.rect,2)
 
         for trap in self.traps:
             pg.draw.rect(self.screen,"Red",trap.rect,2)
@@ -130,10 +141,6 @@ class Stage:
         life_txt = self.font.render(f"Life: {self.player.life}",False,"Green")
         timer_txt = self.font.render(f"Time: {self.time}",False,"White")
 
-        self.screen.blit(score_txt,(100,0))
-        self.screen.blit(life_txt,(300,0))
-        self.screen.blit(timer_txt,(500,0))
-
 
         current_time = pg.time.get_ticks()
         elapsed_time = current_time - self.initial_time
@@ -145,7 +152,6 @@ class Stage:
         for platform in self.platforms:
             platform.update(self.screen)
 
-        self.player.update(self.screen,self.platforms,self.coins,self.enemies,self.traps,self.sounds_volume)
 
         for enemy in self.enemies:
             if enemy.life <= 0:
@@ -154,17 +160,28 @@ class Stage:
             else:
                 enemy.update(self.screen,self.platforms,[self.player],self.sounds_volume)
         
+        for trap in self.traps:
+            trap.animate(trap.actions["idle"],1)
+            trap.update(self.screen)
+
+        self.player.update(self.screen,self.platforms,self.coins,self.enemies,self.traps,self.potions,self.sounds_volume)
+        
         for coin in self.coins:
             if not coin.colition:
                 coin.animate(coin.actions["idle"],1)
                 coin.update(self.screen)
         
-        for trap in self.traps:
-            trap.animate(trap.actions["idle"],1)
-            trap.update(self.screen)
+
+        for potion in self.potions:
+            potion.animate(potion.actions["idle"],0.3)
+            potion.update(self.screen)
 
         if get_mode():
             self.draw_debug_mode()
+
+        self.screen.blit(score_txt,(100,0))
+        self.screen.blit(life_txt,(300,0))
+        self.screen.blit(timer_txt,(500,0))
 
     def update_volume(self):
         self.sounds_volume = self.values.sound_volume
