@@ -2,7 +2,8 @@ import pygame as pg
 import random
 from models.charapter.charapter import Charapter
 from models.platform.class_patform import Platform
-from models.Items.class_item import Item
+from models.reward.reward import Reward
+from models.trap.trap import Trap
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 
 class Player(Charapter):
@@ -20,7 +21,8 @@ class Player(Charapter):
         self.attack_sound = pg.mixer.Sound("assets\img\Sounds\player_attack.mp3")
         self.collect_coin_sound = pg.mixer.Sound("assets\img\Sounds\collect_coin.mp3")
         self.jump_sound = pg.mixer.Sound("assets\img\Sounds\jump.mp3")
-        self.attack_sound.set_volume(0.1)
+        self.hurt_sound = pg.mixer.Sound("assets\img\Sounds\hurt.mp3")
+        
 
 
     def verify_player_events(self):
@@ -104,13 +106,24 @@ class Player(Charapter):
             self.displacement_y = 3
 
 
-    def verify_colition_coin(self,item_list:list[Item]):
+    def verify_colition_coin(self,item_list:list[Reward]):
         for item in item_list:
             if self.colliders["main"].colliderect(item.colliders["main"]) and item.get_colition() == False:
                 item.set_colition(True)
                 item.kill(item_list)
                 self.collect_coin_sound.play()
-                self.score += 150 * random.randint(1,3)
+                self.score += item.score * random.randint(1,3)
+                self.life += item.health
+
+    def verify_colition_body_damage(self,item_list:list):
+        for item in item_list:
+            if self.colliders["main"].colliderect(item.colliders["main"]):
+                if not self.is_invencible:
+                    self.colition_time_enemy_or_trap = pg.time.get_ticks()
+                    self.is_invencible = True
+                    self.life -= item.damage_colition
+                    self.hurt_sound.play()
+
 
     
     def verify_colission_platforms(self, platforms_list:list[Platform]):
@@ -147,6 +160,8 @@ class Player(Charapter):
         self.attack_sound.set_volume(self.volume)
         self.collect_coin_sound.set_volume(self.volume)
         self.projectile_collide_sound.set_volume(self.volume)
+        self.hurt_sound.set_volume(self.volume)
+        
 
     def check_invencibility(self):
         if self.is_invencible:
@@ -155,14 +170,16 @@ class Player(Charapter):
                 self.is_invencible = False
 
 
-    def update(self,screen,platform_list,coin_list,enemy_list,sounds_volume):
+    def update(self,screen,platform_list,coin_list,enemy_list,trap_list,sounds_volume):
         self.set_sound_volume(sounds_volume)
         self.verify_screen_limit(ANCHO_VENTANA)
         self.verify_player_events()
         self.do_actions()
         self.verify_colission_platforms(platform_list)
-        self.verify_colition_coin(coin_list)
         self.check_invencibility()
+        self.verify_colition_body_damage(trap_list)
+        self.verify_colition_body_damage(enemy_list)
+        self.verify_colition_coin(coin_list)
 
         self.move_x()
         super().update(screen,platform_list,enemy_list)

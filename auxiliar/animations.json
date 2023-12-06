@@ -77,11 +77,10 @@
         "Saw":{
             "idle":[
                 "assets\\img\\Trap\\Saw\\0.png",
-                "assets\\img\\Trap\\Saw\\0.png",
-                "assets\\img\\Trap\\Saw\\0.png",
-                "assets\\img\\Trap\\Saw\\0.png",
-                "assets\\img\\Trap\\Saw\\0.png"
-
+                "assets\\img\\Trap\\Saw\\1.png",
+                "assets\\img\\Trap\\Saw\\2.png",
+                "assets\\img\\Trap\\Saw\\3.png",
+                "assets\\img\\Trap\\Saw\\4.png"
             ]
         }
     }

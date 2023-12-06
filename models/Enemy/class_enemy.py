@@ -4,10 +4,11 @@ from models.platform.class_patform import Platform
 from models.constantes import ANCHO_VENTANA
 
 class Enemy(Charapter):
-    def __init__(self, surface: pg.surface, initial_position: list, animations: dict, rect_diference: int, size: list,life:int,damage:int,cadence:int):
+    def __init__(self, surface: pg.surface, initial_position: list, animations: dict, rect_diference: int, size: list,life:int,damage:int,cadence:int,damage_colition):
         super().__init__(surface, initial_position, animations, rect_diference, size,life,damage)
         self.attack_sound = pg.mixer.Sound("assets\img\Sounds\enemy_attack.mp3")
 
+        self.damage_colition = damage_colition
         self.cadence = cadence
         self.last_shot = 0
         self.is_doing = "walk"

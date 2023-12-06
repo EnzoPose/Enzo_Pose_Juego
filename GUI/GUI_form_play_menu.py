@@ -40,8 +40,8 @@ class Form_play(Form):
     def button_home(self,txt):
         self.end_dialog()
 
-    def run_stage(self,lvl_index):
-        stage = Stage(self._master,ANCHO_VENTANA,ALTO_VENTANA,lvl_index,self.values)
+    def run_stage(self,lvl_name):
+        stage = Stage(self._master,ANCHO_VENTANA,ALTO_VENTANA,lvl_name,self.values)
         form_level_container = Form_level_container(self._master,stage,self.values)
         self.show_dialog(form_level_container)
     

@@ -1,0 +1,13 @@
+import pygame as pg
+from models.Items.class_item import Item
+
+class Reward(Item):
+    def __init__(self, surface: pg.Surface, initial_position: tuple, actions: dict, rect_diference: int, size: tuple,score=0,health=0):
+        super().__init__(surface, initial_position, actions, rect_diference, size)
+
+        self.score = score
+        self.health = health
+
+    def update(self,screen):
+        if not self.colition:
+                super().update(screen)

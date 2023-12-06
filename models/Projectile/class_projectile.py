@@ -30,6 +30,7 @@ class Projectile(Item):
                         object.colition_time_enemy_or_trap = pygame.time.get_ticks()
                         object.is_invencible = True
                         object.life -= self.damage
+                        object.hurt_sound.play()
 
 
 

@@ -9,6 +9,8 @@ from GUI.GUI_form import Form
 from GUI.GUI_form_play_menu import Form_play
 from GUI.GUI_form_score_menu import *
 from GUI.GUI_form_settings_menu import Form_settings_menu
+from GUI.GUI_form_controls import Form_controls
+
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 from models.values import Values
 
@@ -35,9 +37,12 @@ class Main_form(Form):
         self.title = Label(self.slave,40,12,720,60,"Main menu","consolas",50,"White","GUI\Recursos\Table.png")
         self.bttn_play = Button_Image(self.slave, x, y, 40, 110, 720, 80, "GUI\Recursos\Play.png",self.button_play,"lalala")
         self.bttn_settings = Button_Image(self.slave, x, y, 40, 220, 720, 80, "GUI\Recursos\settings_bar.png", self.button_settings,"lalala")
+        self.bttn_controls = Button_Image(self.slave, x, y, 40, 330, 720, 80, "GUI\Recursos\controls_button.png", self.button_controls,"lalala")
+        
         self.widget_list.append(self.title)
         self.widget_list.append(self.bttn_play)
         self.widget_list.append(self.bttn_settings)
+        self.widget_list.append(self.bttn_controls)
 
     
     def button_play(self,txt):
@@ -49,6 +54,9 @@ class Main_form(Form):
         settings_form = Form_settings_menu(self._master,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp",self.values)
         self.show_dialog(settings_form)
 
+    def button_controls(self,txt):
+        controls_form = Form_controls(self._master,250,100,800,600,"GUI\Recursos\controls_menu.png","GUI\Recursos\AdobeStock_81556974.webp")
+        self.show_dialog(controls_form)
     # def button_score(self):
     #     pass
 

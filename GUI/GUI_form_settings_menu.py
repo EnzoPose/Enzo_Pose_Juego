@@ -87,8 +87,6 @@ class Form_settings_menu(Form):
         
         self.is_recording = not self.is_recording
     
-    def render(self):
-        self.slave.blit(self.img,(0,0))
 
     def update_volume(self):
         self.values.music_volume = self.music_volume_slider.value
@@ -102,6 +100,9 @@ class Form_settings_menu(Form):
     def get_volume(self):
         return self.volume_sounds
     
+    def render(self):
+        self.slave.blit(self.img,(0,0))
+        
     def update(self,event_list):
         self._master.blit(self.bgd_img,(0,0))
         if self.verify_dialog_result():

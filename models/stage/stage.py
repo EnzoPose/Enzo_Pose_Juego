@@ -3,7 +3,8 @@ import pygame as pg
 from models.player.class_player import Player
 from models.Enemy.class_enemy import Enemy
 from models.platform.class_patform import Platform
-from models.Items.class_item import Item
+from models.reward.reward import Reward
+from models.trap.trap import Trap
 from auxiliar.modo import *
 from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
@@ -14,6 +15,9 @@ class Stage:
     def __init__(self,screen,w,h,stage_name,values:Values) -> None:
 
         self.stage_name = stage_name
+        self.values = values
+        
+        self.values.current_level = stage_name
         self.stage_configs = self.get_configs()
         self.bgd = self.stage_configs.get("Scenario").get("Background")
         self.bgd_surface = pg.image.load(self.bgd)
@@ -21,18 +25,18 @@ class Stage:
         self.font = pg.font.SysFont("consolas",30)
         self.player_configs = self.stage_configs.get("Player")
         self.enemy_configs = self.stage_configs.get("Enemies")
-        # self.saw_configs = self.stage_configs.get("Saw")
+        self.trap_configs = self.stage_configs.get("Traps")
         self.coin_configs = self.stage_configs.get("Items").get("Coins")
-
+        
         self.w = w
         self.h = h
         self.screen = screen
         background_surface = pg.image.load(self.stage_configs.get("Scenario").get("Background"))
         self.background_img = pg.transform.scale(background_surface,(self.w,self.h))
 
-        self.values = values
-        self.values.win = False
-        self.values.lost = False
+
+        self.win = False
+        self.lost = False
         self.initial_time = pg.time.get_ticks()
         self.time = 60
 
@@ -44,26 +48,27 @@ class Stage:
         self.enemies = self.set_enemies()
         self.coins = self.set_coins()
         self.platforms = self.set_platforms()
-        # self.traps = self.set_traps()
+        self.traps = self.set_traps()
+
+
 
     def get_configs(self):
         with open('configs\configs.json', 'r',encoding="utf-8") as configs:
             return json.load(configs)[self.stage_name]
-            #print(self.__stage_configs)
 
     def set_enemies(self)-> list[Enemy]:
         enemy_list = []
         for i in range(self.enemy_configs.get("Amount")):
             enemy_list.append(Enemy(enemy_animations["walk"][0],self.enemy_configs.get("Coords")[i],
                                     enemy_animations,10,self.enemy_configs.get("Size"),self.enemy_configs.get("Life"),
-                                    self.enemy_configs.get("Damage"),self.enemy_configs.get("Cadence")))
+                                    self.enemy_configs.get("Damage"),self.enemy_configs.get("Cadence"),self.enemy_configs.get("Damage_colition")))
         return enemy_list
 
-    def set_coins(self)-> list[Item]:
+    def set_coins(self)-> list[Reward]:
         coin_configs = self.stage_configs.get("Items").get("Coins")
         coin_list = []
         for i in range(coin_configs.get("Amount")):
-            coin_list.append(Item(coin_animations["idle"][0],coin_configs.get("Coords")[i],coin_animations,10,coin_configs.get("Size")))
+            coin_list.append(Reward(coin_animations["idle"][0],coin_configs.get("Coords")[i],coin_animations,0,coin_configs.get("Size"),coin_configs.get("Score")))
         return coin_list
 
     def set_platforms(self) -> list[Platform]:
@@ -73,12 +78,11 @@ class Stage:
             platform_list.append(Platform(platform_configs.get("Surface")[i],platform_configs.get("Coords")[i],None,10,platform_configs.get("Size")[i]))
         return platform_list
 
-    def set_traps(self)-> list[Item]:
-        trap_configs = self.stage_configs.get("Traps")
+    def set_traps(self)-> list[Trap]:
         trap_list = []
-        for i in range(trap_configs.get("Amount")):
-            trap_list.append()
-
+        for i in range(self.trap_configs.get("Amount")):
+            trap_list.append(Trap(saw_animations["idle"][0],self.trap_configs.get("Coords")[i],saw_animations,0,self.trap_configs.get("Size")[i],self.trap_configs.get("Damage")))
+        return trap_list
 
     
     def check_win(self):
@@ -86,6 +90,8 @@ class Stage:
             case 'Stage_1' | 'Stage_2' | 'Stage_3':
                 if len(self.enemies) == 0 and len(self.coins) == 0:
                     self.values.win = True 
+                    self.win = True
+
 
 
     def draw_debug_mode(self):
@@ -105,6 +111,9 @@ class Stage:
 
         for coin in self.coins:
             pg.draw.rect(self.screen,"Red",coin.rect,2)
+
+        for trap in self.traps:
+            pg.draw.rect(self.screen,"Red",trap.rect,2)
 
         for enemy in self.enemies:
             pg.draw.rect(self.screen,"Red",enemy.colliders["main"],2)
@@ -136,7 +145,7 @@ class Stage:
         for platform in self.platforms:
             platform.update(self.screen)
 
-        self.player.update(self.screen,self.platforms,self.coins,self.enemies,self.sounds_volume)
+        self.player.update(self.screen,self.platforms,self.coins,self.enemies,self.traps,self.sounds_volume)
 
         for enemy in self.enemies:
             if enemy.life <= 0:
@@ -150,6 +159,10 @@ class Stage:
                 coin.animate(coin.actions["idle"],1)
                 coin.update(self.screen)
         
+        for trap in self.traps:
+            trap.animate(trap.actions["idle"],1)
+            trap.update(self.screen)
+
         if get_mode():
             self.draw_debug_mode()
 
@@ -159,6 +172,7 @@ class Stage:
     def check_lost(self):
         if self.player.life <= 0 or self.time <= 0:
             self.values.lost = True
+            self.lost = True
 
 
     def run(self):

@@ -19,5 +19,4 @@ class Item(Object):
             items_list.remove(self)
 
     def update(self,screen):
-        if not self.colition:
-            super().update(screen)
+        super().update(screen)
