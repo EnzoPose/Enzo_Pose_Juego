@@ -1,6 +1,5 @@
 from models.object_game.Class_object import Object
 from models.Projectile.class_projectile import Projectile
-from models.platform.class_patform import Platform
 from auxiliar.configuraciones import resize_images
 import pygame as pg
 
@@ -34,6 +33,8 @@ class Charapter(Object):
 
         self.colliders_thickness = rect_diference
 
+        self.projectile_collide_sound = pg.mixer.Sound("assets\img\Sounds\lasser_collide.mp3")
+
     
     def resize_animations(self):
         for key in self.animations: ## por cada key en el diccionario de animations del objeto
@@ -57,14 +58,14 @@ class Charapter(Object):
 
 
 
-    def create_projectile(self,image_path,size):
+    def create_projectile(self,image_path,size,who_created_it):
         surface = pg.transform.scale(pg.image.load(image_path),size)
         if self.is_loking_right:
-            projectile = Projectile(surface,(self.rect.right, self.rect.centery - 20),None,0,size,self.damage)
+            projectile = Projectile(surface,(self.rect.right, self.rect.centery - 20),None,0,size,self.damage,who_created_it)
             projectile.speed = 20
         else:
             surface = pg.transform.flip(surface,True,False)
-            projectile = Projectile(surface,(self.rect.left, self.rect.centery - 20),None,0,size,self.damage)
+            projectile = Projectile(surface,(self.rect.left, self.rect.centery - 20),None,0,size,self.damage,who_created_it)
             projectile.speed = -20
         self.projectile_list.append(projectile)
 
@@ -73,6 +74,7 @@ class Charapter(Object):
         for projectile in self.projectile_list:
             projectile.update(screen,platform_list,self.projectile_list,enemy_list)
             if projectile.colition:
+                self.projectile_collide_sound.play()
                 projectile.kill(self.projectile_list)
 
 

@@ -15,8 +15,7 @@ class Form(Widget):
         self.hijo = None
         self.dialog_result = None
         self.padre = None
-        self.volume = 0.1
-    
+
     def show_dialog(self, formulario):
         self.hijo = formulario
         self.hijo.padre = self

@@ -1,15 +1,16 @@
 import pygame
+
 from models.constantes import ANCHO_VENTANA
 from models.Items.class_item import Item
 from models.platform.class_patform import Platform
-# from models.Enemy.class_enemy import Enemy
-# from models.player.class_player import Player
+
 
 class Projectile(Item):
-    def __init__(self, surface: pygame.Surface, initial_position: tuple, actions: dict, rect_diference: int, size: tuple,damage):
+    def __init__(self, surface: pygame.Surface, initial_position: tuple, actions: dict, rect_diference: int, size: tuple,damage,who_created_it):
         super().__init__(surface, initial_position, actions, 0, size)
         self.speed = 0
         self.damage = damage
+        self.who_created_it = who_created_it
 
     def check_collide(self,platform_list,projectile_list,enemy_list):
         object_list = []
@@ -23,7 +24,14 @@ class Projectile(Item):
             if self.colliders["main"].colliderect(object.colliders["main"]):
                 self.kill(projectile_list)
                 if type(object) != Platform:
-                    object.life -= self.damage
+                    if self.who_created_it == "Player":
+                        object.life -= self.damage
+                    elif self.who_created_it == "Enemy" and object.is_invencible == False:
+                        object.colition_time_enemy_or_trap = pygame.time.get_ticks()
+                        object.is_invencible = True
+                        object.life -= self.damage
+
+
 
     def update(self, screen,platform_list,projectile_list,enemy_list):
         self.rect.x += self.speed

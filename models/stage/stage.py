@@ -6,13 +6,18 @@ from models.platform.class_patform import Platform
 from models.Items.class_item import Item
 from auxiliar.modo import *
 from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations
+from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
+from models.values import Values
+import random
 
 class Stage:
-    def __init__(self,screen,w,h,stage_name) -> None:
+    def __init__(self,screen,w,h,stage_name,values:Values) -> None:
+
         self.stage_name = stage_name
         self.stage_configs = self.get_configs()
         self.bgd = self.stage_configs.get("Scenario").get("Background")
         self.bgd_surface = pg.image.load(self.bgd)
+        self.bgd_surface = pg.transform.scale(self.bgd_surface,(ANCHO_VENTANA,ALTO_VENTANA))
         self.font = pg.font.SysFont("consolas",30)
         self.player_configs = self.stage_configs.get("Player")
         self.enemy_configs = self.stage_configs.get("Enemies")
@@ -24,8 +29,14 @@ class Stage:
         self.screen = screen
         background_surface = pg.image.load(self.stage_configs.get("Scenario").get("Background"))
         self.background_img = pg.transform.scale(background_surface,(self.w,self.h))
-        self.win = False
-        self.is_paused = False
+
+        self.values = values
+        self.values.win = False
+        self.values.lost = False
+        self.initial_time = pg.time.get_ticks()
+        self.time = 60
+
+        # self.sounds_volume = 0.1
 
         self.player = Player(player_animations["idle"][0],self.player_configs.get("Coords"),player_animations,10,self.player_configs.get("Size"),self.player_configs.get("Life"),
                             self.player_configs.get("Damage"))
@@ -45,7 +56,7 @@ class Stage:
         for i in range(self.enemy_configs.get("Amount")):
             enemy_list.append(Enemy(enemy_animations["walk"][0],self.enemy_configs.get("Coords")[i],
                                     enemy_animations,10,self.enemy_configs.get("Size"),self.enemy_configs.get("Life"),
-                                    self.enemy_configs.get("Damage")))
+                                    self.enemy_configs.get("Damage"),self.enemy_configs.get("Cadence")))
         return enemy_list
 
     def set_coins(self)-> list[Item]:
@@ -69,17 +80,12 @@ class Stage:
             trap_list.append()
 
 
-    def stage_passed(self):
-        if self.win:
-            return self.win
-
-
     
-    def check_win(self) -> bool:
+    def check_win(self):
         match self.stage_name:
-            case 'Stage_1' | 'Stage_2' | 'Stage_3' | 'Stage_4':
+            case 'Stage_1' | 'Stage_2' | 'Stage_3':
                 if len(self.enemies) == 0 and len(self.coins) == 0:
-                    self.win = True 
+                    self.values.win = True 
 
 
     def draw_debug_mode(self):
@@ -110,34 +116,53 @@ class Stage:
 
     def update_screen(self):
         self.screen.blit(self.bgd_surface,(0,0))
+
         score_txt = self.font.render(f"Score: {self.player.score}",False,"Red")
         life_txt = self.font.render(f"Life: {self.player.life}",False,"Green")
-        
-        self.screen.blit(score_txt,(0,0))
-        self.screen.blit(life_txt,(0,30))
+        timer_txt = self.font.render(f"Time: {self.time}",False,"White")
+
+        self.screen.blit(score_txt,(100,0))
+        self.screen.blit(life_txt,(300,0))
+        self.screen.blit(timer_txt,(500,0))
+
+
+        current_time = pg.time.get_ticks()
+        elapsed_time = current_time - self.initial_time
+        if  elapsed_time >= 1000:
+            self.time -= 1
+            self.initial_time = current_time
+
 
         for platform in self.platforms:
             platform.update(self.screen)
 
-        self.player.update(self.screen,self.platforms,self.coins,self.enemies)
+        self.player.update(self.screen,self.platforms,self.coins,self.enemies,self.sounds_volume)
 
         for enemy in self.enemies:
             if enemy.life <= 0:
+                self.player.score += 300 * random.randint(1,5)
                 self.enemies.remove(enemy)
             else:
-                enemy.update(self.screen,self.platforms,[self.player])
+                enemy.update(self.screen,self.platforms,[self.player],self.sounds_volume)
         
         for coin in self.coins:
             if not coin.colition:
-                coin.animate(coin.actions["idle"])
+                coin.animate(coin.actions["idle"],1)
                 coin.update(self.screen)
         
         if get_mode():
             self.draw_debug_mode()
 
+    def update_volume(self):
+        self.sounds_volume = self.values.sound_volume
+
+    def check_lost(self):
+        if self.player.life <= 0 or self.time <= 0:
+            self.values.lost = True
 
 
     def run(self):
-        if not self.is_paused:
-            self.update_screen()
-            self.check_win()
+        self.update_volume()
+        self.check_lost()
+        self.check_win()
+        self.update_screen()

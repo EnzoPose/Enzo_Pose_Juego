@@ -6,6 +6,7 @@
             "background_music": "./assets/music/Stage_1_bkg_music.mp3"
         },
         "Enemies": {
+            "Cadence": 1500,
             "Amount": 3,
             "Life": 100,
             "Damage": 20,
@@ -83,10 +84,11 @@
     "Stage_2": {
         "Scenario": {
             "stage_name": "Level 1",
-            "Background": "assets\\img\\Backgrounds\\forest\\1920x1080.jpg",
+            "Background": "assets\\img\\Backgrounds\\forest\\desktop-wallpaper-space-galaxy-texture-purple-galaxy-galaxy-galaxy-art-pink-and-purple-space.jpg",
             "background_music": "./assets/music/stage_1_bkg_music.mp3"
         },
         "Enemies": {
+            "Cadence": 1500,
             "Amount": 3,
             "Life": 100,
             "Damage": 20,
@@ -164,10 +166,11 @@
     "Stage_3": {
         "Scenario": {
             "stage_name": "Level 1",
-            "Background": "assets\\img\\Backgrounds\\forest\\1920x1080.jpg",
+            "Background": "assets\\img\\Backgrounds\\forest\\red-space-mcxalhp0kh9ivlp6.jpg",
             "background_music": "./assets/music/stage_1_bkg_music.mp3"
         },
         "Enemies": {
+            "Cadence": 1500,
             "Amount": 1,
             "Life": 500,
             "Damage": 25,
