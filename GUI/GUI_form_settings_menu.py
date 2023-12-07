@@ -35,12 +35,12 @@ class Form_settings_menu(Form):
 
 
         self.music_volume_slider = Slider(self.slave, x, y, 100, 250, 300, 10, self.values.music_volume, "Black", "White")
-        self.music_volume_label = Label(self.slave,430,200,100,100,"0%","consolas",25,"Black","GUI\Recursos\Table.png")
-        self.music_volume_label_text = Label(self.slave,200,100,100,100,"Music","consolas",25,"Black","GUI\Recursos\Table.png")
+        self.music_volume_label = Label(self.slave,430,200,100,100,"0%","consolas",25,"White","GUI\Recursos\Table.png")
+        self.music_volume_label_text = Label(self.slave,200,100,100,100,"Music","consolas",25,"White","GUI\Recursos\Table.png")
 
         self.sounds_volume_slider = Slider(self.slave,x, y,100,450,300,10,self.values.sound_volume,"Black","White")
-        self.sounds_volume_label = Label(self.slave,430,400,100,100,"0%","consolas",25,"Black","GUI\Recursos\Table.png")
-        self.sound_volume_label_text = Label(self.slave,200,300,100,100,"Sounds","consolas",25,"Black","GUI\Recursos\Table.png")
+        self.sounds_volume_label = Label(self.slave,430,400,100,100,"0%","consolas",25,"White","GUI\Recursos\Table.png")
+        self.sound_volume_label_text = Label(self.slave,200,300,100,100,"Sounds","consolas",25,"White","GUI\Recursos\Table.png")
 
         self.btn_home = Button_Image(self.slave,x,y,50,100,80,80,onclick= self.button_home,onclick_param="lalala",path_image="GUI\Recursos\home.png")
         # self.volume_label = Label()

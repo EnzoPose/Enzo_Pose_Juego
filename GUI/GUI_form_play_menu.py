@@ -2,6 +2,7 @@ from GUI.GUI_form import Form
 from GUI.GUI_form_level_container import Form_level_container
 from GUI.UI.GUI_button_image import Button_Image
 from GUI.UI.GUI_label import Label
+from GUI.UI.GUI_textbox import TextBox
 from models.stage.stage import Stage
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 from models.values import Values
@@ -9,9 +10,8 @@ import pygame as pg
 
 
 class Form_play(Form):
-    def __init__(self, screen, x, y, w, h,path_image,path_bgd,values):
+    def __init__(self, screen, x, y, w, h,path_image,path_bgd,values:Values):
         super().__init__(screen, x, y, w, h)
-
         self.values = values
         self.level_manager = ["Stage_1", "Stage_2", "Stage_3"]
         img = pg.image.load(path_image)

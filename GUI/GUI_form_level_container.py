@@ -14,7 +14,10 @@ class Form_level_container(Form):
         self.txt_pause = self.font.render("Paused",False,"White")
         values.in_level = True
         values.is_paused = False
-        self.values = values
+        values.current_level = level.stage_name
+        self.values = values 
+
+
         level.screen = self.slave
         self.level = level
         self.btn_back = Button_Image(self.slave, 0, 0, 1200, 300, 50, 50, r"GUI\Recursos\home.png", self.button_back,"lalala")
@@ -53,13 +56,9 @@ class Form_level_container(Form):
             self.show_dialog(self.form_game_over)
             if self.form_game_over.reset_level:
                 self.reset_level()
-
-
-
-    
-
-        elif self.values.win:
-            pass
+        elif self.level.win:
+            self.txt_win = self.font.render(f"You win, your score {self.values.player_score[self.values.player_name][self.values.current_level]}",False,"White")
+            self.slave.blit(self.txt_win,(450,300))
 
 
 

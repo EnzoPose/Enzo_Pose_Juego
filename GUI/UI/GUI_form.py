@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
-
 from UI.GUI_button import *
+
 #No se instancia. Es la base de la jerarquia
 class Form(Widget):
     def __init__(self, screen:pygame.Surface, x: int, y:int, w:int ,h: int, color_background,color_border = "Black", border_size: int = -1, active = True):
@@ -29,6 +29,5 @@ class Form(Widget):
 
     def verificar_dialog_result(self):
         return self.hijo == None or self.hijo.dialog_result != None
- 
 
     

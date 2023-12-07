@@ -40,8 +40,8 @@ class TextBox(Widget):
     def render(self):
         image_text = self._font.render(self._text, True, self._font_color, self._color_background)
         
-        self._slave = pygame.surface.Surface((self._w,self._h))#superficie que se adapte a la del boton
-        self.slave_rect = self._slave.get_rect()
+        self.slave = pygame.surface.Surface((self._w,self._h))#superficie que se adapte a la del boton
+        self.slave_rect = self.slave.get_rect()
         
         self.slave_rect.x = self._x
         self.slave_rect.y = self._y
@@ -51,7 +51,7 @@ class TextBox(Widget):
         self.slave_rect_collide.y += self._master_y
         
         
-        self._slave.fill(self._color_background)
+        self.slave.fill(self._color_background)
         
         media_texto_horizontal = image_text.get_width() / 2
         media_texto_vertical = image_text.get_height() / 2
@@ -61,7 +61,7 @@ class TextBox(Widget):
         diferencia_horizontal = media_horizontal - media_texto_horizontal 
         diferencia_vertical = media_vertical - media_texto_vertical
         
-        self._slave.blit(image_text,(diferencia_horizontal,diferencia_vertical))#podriamos sacar cuentas para centrar el texto, por el momento 10-10
+        self.slave.blit(image_text,(diferencia_horizontal,diferencia_vertical))#podriamos sacar cuentas para centrar el texto, por el momento 10-10
         
     
     def update(self, lista_eventos):

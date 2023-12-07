@@ -113,7 +113,7 @@
             ]
         },
         "Player": {
-            "Life": 10,
+            "Life": 10000,
             "Damage": 25,
             "Size": [40,80],
             "Coords": [150,600]
@@ -237,7 +237,7 @@
         "Enemies": {
             "Cadence": 1000,
             "Amount": 1,
-            "Life": 1500,
+            "Life": 1000,
             "Damage": 30,
             "Damage_colition":20,
             "Size": [100,100],
@@ -297,7 +297,7 @@
         },
         "Player": {
             "Life": 10000,
-            "Damage": 20,
+            "Damage": 25,
             "Size": [40,80],
             "Coords": [150,600]
         }

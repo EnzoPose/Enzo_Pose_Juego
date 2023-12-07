@@ -5,6 +5,7 @@ from auxiliar.modo import *
 from models.stage.stage import Stage
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA,FPS
 from models.values import Values
+from db_functions import create_db
 
 class Game:
     def __init__(self) -> None:
@@ -14,7 +15,7 @@ class Game:
         self.clock = pygame.time.Clock()
     
     def run_game(self):
-        
+        create_db()
         values = Values()
         pygame.display.set_caption("Megaman Remix")
         main_form = Main_form(self.screen_surface,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp",values)

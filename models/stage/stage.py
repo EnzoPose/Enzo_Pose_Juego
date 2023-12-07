@@ -10,6 +10,7 @@ from auxiliar.modo import *
 from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations,potion_animations,boss_animations
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 from models.values import Values
+from db_functions import get_player_id, update_row_in_db
 import random
 
 class Stage:
@@ -17,7 +18,6 @@ class Stage:
 
         self.stage_name = stage_name
         self.values = values
-        
         self.values.current_level = stage_name
         self.stage_configs = self.get_configs()
         self.bgd = self.stage_configs.get("Scenario").get("Background")
@@ -49,9 +49,12 @@ class Stage:
 
         if self.stage_name != "Stage_3":
             self.enemies = self.set_enemies() 
+            self.score_enemies = 300
         else:
             self.enemies = [Boss(boss_animations["walk"][0],self.enemy_configs.get("Coords"),boss_animations,10,self.enemy_configs.get("Size"),
                 self.enemy_configs.get("Life"),self.enemy_configs.get("Damage"),self.enemy_configs.get("Cadence"),self.enemy_configs.get("Damage_colition"))]
+            self.score_enemies = 5000
+    
         self.coins = self.set_coins()
         self.platforms = self.set_platforms()
         self.traps = self.set_traps()
@@ -102,8 +105,10 @@ class Stage:
         match self.stage_name:
             case 'Stage_1' | 'Stage_2' | 'Stage_3':
                 if len(self.enemies) == 0 and len(self.coins) == 0:
-                    self.values.win = True 
                     self.win = True
+                    self.values.player_score[self.values.player_name][self.values.current_level] = self.player.score
+                    current_player_id = get_player_id(self.values.player_name) 
+                    update_row_in_db(current_player_id,self.values.obtain_total_score())
 
 
 
@@ -160,7 +165,7 @@ class Stage:
 
         for enemy in self.enemies:
             if enemy.life <= 0:
-                self.player.score += 300 * random.randint(1,5)
+                self.player.score += self.score_enemies * random.randint(1,5)
                 self.enemies.remove(enemy)
             else:
                 if self.stage_name != "Stage_3":
@@ -195,7 +200,6 @@ class Stage:
 
     def check_lost(self):
         if self.player.life <= 0 or self.time <= 0:
-            self.values.lost = True
             self.lost = True
 
 
