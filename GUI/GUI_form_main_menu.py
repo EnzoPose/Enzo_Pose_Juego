@@ -9,7 +9,7 @@ from GUI.GUI_form_score_menu import *
 from GUI.GUI_form_settings_menu import Form_settings_menu
 from GUI.GUI_form_controls import Form_controls
 from GUI.GUI_form_score_menu import Form_Score
-from db_functions import insert_row_into_db
+from db_functions import insert_row_into_db,exist_name_in_db,obtain_score_with_id,get_player_id
 
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 from models.values import Values
@@ -56,8 +56,13 @@ class Main_form(Form):
     def button_play(self,txt):
         play_form = Form_play(self._master,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp",self.values)
         self.values.player_name = self.txt_box._text
-        self.values.create_player_score_dict()
-        insert_row_into_db(self.values.player_name,self.values.obtain_total_score())
+        
+        if exist_name_in_db(self.values.player_name) > 0:
+            print(self.values.player_score)
+            self.values.create_player_score_dict(obtain_score_with_id(get_player_id(self.values.player_name)))
+        else:
+            self.values.create_player_score_dict()
+            insert_row_into_db(self.values.player_name,self.values.obtain_total_score())
         self.show_dialog(play_form)
 
 

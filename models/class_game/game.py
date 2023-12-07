@@ -15,11 +15,22 @@ class Game:
         self.clock = pygame.time.Clock()
     
     def run_game(self):
+        '''
+        Brief:
+        Este método de clase ejecuta el bucle principal del juego, gestionando eventos y actualizando la interfaz gráfica.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         create_db()
         values = Values()
         pygame.display.set_caption("Megaman Remix")
         main_form = Main_form(self.screen_surface,250,100,800,600,"GUI\Recursos\Window.png","GUI\Recursos\AdobeStock_81556974.webp",values)
         while self.executing:
+            print(values.player_score)
             self.clock.tick(FPS)
             event_list = pygame.event.get()
             for event in event_list:

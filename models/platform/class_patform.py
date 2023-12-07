@@ -10,4 +10,15 @@ class Platform(Object):
         self.rect_for_collide_enemy_l = pygame.rect.Rect(self.colliders["main"].left - 10, self.colliders["main"].top -20,10,20)
 
     def update(self,screen):
+        '''
+        Brief:
+        Este método de clase actualiza el estado de la plataforma en el juego.
+
+        Parametros:
+        - screen: Superficie de la pantalla.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         super().update(screen)

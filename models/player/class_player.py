@@ -26,6 +26,16 @@ class Player(Charapter):
 
 
     def verify_player_events(self):
+        '''
+        Brief:
+        Este método de clase verifica los eventos del jugador (teclas presionadas) y actualiza el estado del jugador en consecuencia.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         event = pg.key.get_pressed()
 
         if event[pg.K_LEFT] and not event[pg.K_RIGHT]:
@@ -43,6 +53,17 @@ class Player(Charapter):
 
 
     def do_actions(self):
+        '''
+        Brief:
+        Este método de clase ejecuta acciones específicas para el jugador según el estado actual definido por la variable "is_doing".
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         match self.is_doing:
             case "right":
                 self.is_loking_right = True
@@ -86,6 +107,17 @@ class Player(Charapter):
 
     
     def verify_screen_limit(self, width):
+        '''
+        Brief:
+        Este método de clase verifica si el personaje ha alcanzado los límites de la pantalla y ajusta sus colliders en consecuencia.
+
+        Parametros:
+        - width: Ancho de la pantalla.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         if self.colliders["main"].left < 0:
             # El personaje ha superado el límite izquierdo de la pantalla
             self.colliders["main"].left = 0
@@ -107,6 +139,16 @@ class Player(Charapter):
 
 
     def verify_colition_coin(self,item_list:list[Reward]):
+        '''
+        Brief:
+        Este método de clase verifica la colisión del jugador con elementos de tipo "Reward" (por ejemplo, monedas) y realiza acciones correspondientes como eliminar el elemento, actualizar el puntaje y la vida del jugador, y reproducir un sonido.
+
+        Parametros:
+        - item_list: Lista de instancias de la clase "Reward".
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         for item in item_list:
             if self.colliders["main"].colliderect(item.colliders["main"]) and item.get_colition() == False:
                 item.set_colition(True)
@@ -116,6 +158,16 @@ class Player(Charapter):
                 self.life += item.health
 
     def verify_colition_body_damage(self,item_list:list):   
+        '''
+        Brief:
+        Este método de clase verifica la colisión del jugador con elementos que pueden causar daño (por ejemplo, enemigos o trampas) y realiza acciones correspondientes como reducir la vida del jugador y establecer su estado de invencibilidad.
+
+        Parametros:
+        - item_list: Lista de instancias que pueden causar daño.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         for item in item_list:
             if self.colliders["main"].colliderect(item.colliders["main"]):
                 if not self.is_invencible:
@@ -127,6 +179,16 @@ class Player(Charapter):
 
     
     def verify_colission_platforms(self, platforms_list:list[Platform]):
+        '''
+        Brief:
+        Este método de clase verifica la colisión del jugador con plataformas y ajusta su posición y estado en consecuencia.
+
+        Parametros:
+        - platforms_list: Lista de instancias de la clase "Platform".
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         self.gravity_fall()
         self.is_jumping = True
         for platform in platforms_list:
@@ -155,6 +217,15 @@ class Player(Charapter):
                 self.displacement_y = 3
 
     def set_sound_volume(self,sound_volume):
+        '''
+        Brief:
+        Este método de clase establece el volumen de los sonidos asociados al jugador.
+        Parametros:
+        - sound_volume: Volumen deseado para los sonidos.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         self.volume = sound_volume
         self.jump_sound.set_volume(self.volume)
         self.attack_sound.set_volume(self.volume)
@@ -164,6 +235,17 @@ class Player(Charapter):
         
 
     def check_invencibility(self):
+        '''
+        Brief:
+        Este método de clase verifica si el jugador está en estado de invencibilidad y actualiza su estado en consecuencia.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         if self.is_invencible:
             current_time = pg.time.get_ticks()
             if current_time - self.colition_time_enemy_or_trap >= 2000:
@@ -171,6 +253,23 @@ class Player(Charapter):
 
 
     def update(self,screen,platform_list,coin_list,enemy_list,trap_list,potion_list,sounds_volume):
+        '''
+        Brief:
+        Este método de clase actualiza el estado del jugador en el juego, gestionando eventos del jugador, acciones, colisiones con plataformas, invencibilidad, daño de trampas y enemigos, y colisiones con monedas y pociones.
+
+        Parametros:
+        - screen: Superficie de la pantalla.
+        - platform_list: Lista de instancias de la clase "Platform".
+        - coin_list: Lista de instancias de la clase "Reward" representando monedas.
+        - enemy_list: Lista de instancias de la clase "Enemy".
+        - trap_list: Lista de instancias de la clase "Trap".
+        - potion_list: Lista de instancias de la clase "Reward" representando pociones.
+        - sounds_volume: Volumen de los sonidos.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         self.set_sound_volume(sounds_volume)
         self.verify_screen_limit(ANCHO_VENTANA)
         self.verify_player_events()

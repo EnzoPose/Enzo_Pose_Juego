@@ -57,7 +57,7 @@ class Form_level_container(Form):
             if self.form_game_over.reset_level:
                 self.reset_level()
         elif self.level.win:
-            self.txt_win = self.font.render(f"You win, your score {self.values.player_score[self.values.player_name][self.values.current_level]}",False,"White")
+            self.txt_win = self.font.render(f"You win, your score {self.level.player.score}",False,"White")
             self.slave.blit(self.txt_win,(450,300))
 
 

@@ -21,9 +21,30 @@ class Enemy(Charapter):
         self.sound_volume = 0.1
 
     def kill(self):
+        '''
+        Brief:
+        Este método de clase establece el estado de vida del enemigo como falso.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         self.is_alive = False
 
     def check_collition_platform(self,platform_list:list[Platform]):
+        '''
+        Brief:
+        Este método de clase verifica la colisión del enemigo con plataformas y ajusta su comportamiento en consecuencia.
+
+        Parametros:
+        - platform_list: Lista de plataformas con las que verificar la colisión.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         for platform in platform_list:
             if self.colliders["right"].colliderect(platform.colliders["left"]) or self.colliders["main"].right >= ANCHO_VENTANA \
                 or self.colliders["right"].colliderect(platform.rect_for_collide_enemy_r):
@@ -45,6 +66,17 @@ class Enemy(Charapter):
                 self.displacement_y = 0
 
     def verify_is_looking_player(self,player):
+        '''
+        Brief:
+        Este método de clase verifica si el enemigo está mirando al jugador y ajusta su comportamiento en consecuencia.
+
+        Parametros:
+        - player: Objeto del jugador con el que verificar la orientación.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         if self.pov_rect.colliderect(player.colliders["main"]):
             self.is_looking_player = True
             self.is_doing = "attack"
@@ -56,6 +88,16 @@ class Enemy(Charapter):
 
 
     def do_attack(self):
+        '''
+        Brief:
+        Este método de clase ejecuta la animación y la lógica del ataque del enemigo.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         now = pg.time.get_ticks()
         if self.is_loking_right:
             self.animate(self.animations["attack"],0.8)
@@ -67,6 +109,17 @@ class Enemy(Charapter):
             self.last_shot = now
 
     def event_management(self):
+        '''
+        Brief:
+        Este método de clase gestiona los eventos del enemigo según su estado actual.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
+
         match self.is_doing:
             case "walk":
                 self.speed_x = 3
@@ -84,11 +137,22 @@ class Enemy(Charapter):
                 if self.is_looking_player:
                     self.speed_x = 0
                     self.do_attack()
-                    
-                    
 
 
     def update(self,screen,platform_list,enemy_list,sound_volume):
+        '''
+        Brief:
+        Este método de clase actualiza el estado del enemigo, gestionando la lógica de movimiento, orientación y eventos.
+
+        Parametros:
+        - screen: Superficie de pantalla donde se realiza la actualización.
+        - platform_list: Lista de plataformas para verificar colisiones.
+        - enemy_list: Player en formato lista para la gestión de eventos.
+        - sound_volume: Volumen del sonido para ajustar efectos de sonido.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         self.sound_volume = sound_volume
         self.projectile_collide_sound.set_volume(self.sound_volume)
         self.attack_sound.set_volume(self.sound_volume)

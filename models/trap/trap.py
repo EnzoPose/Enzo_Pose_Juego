@@ -8,4 +8,14 @@ class Trap(Item):
         self.damage_colition = damage
 
     def update(self,screen):
+        '''
+        Brief:
+        Este método de clase actualiza el estado de la instancia de la clase, llamando al método "update" de la clase padre.
+        Parametros:
+        - screen: Objeto que representa la pantalla en la que se realiza la actualización.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         super().update(screen)

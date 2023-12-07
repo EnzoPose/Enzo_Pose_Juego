@@ -17,6 +17,7 @@ class Form_Score(Form):
         self.slave = img
 
         self.top_3_players = get_top_3_players()
+        
         self.name_player_1 = Label(self.slave,50,200,350,100,f"{self.top_3_players[0][0]}","consolas",25,"White","GUI\Recursos\Table.png")
         self.score_player_1 = Label(self.slave,400,200,350,100,f"{self.top_3_players[0][1]}","consolas",25,"White","GUI\Recursos\Table.png")
         self.name_player_2 = Label(self.slave,50,320,350,100,f"{self.top_3_players[1][0]}","consolas",25,"White","GUI\Recursos\Table.png")

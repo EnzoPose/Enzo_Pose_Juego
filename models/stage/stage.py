@@ -10,7 +10,7 @@ from auxiliar.modo import *
 from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations,potion_animations,boss_animations
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 from models.values import Values
-from db_functions import get_player_id, update_row_in_db
+from db_functions import get_player_id, update_row_in_db, obtain_score_with_id
 import random
 
 class Stage:
@@ -63,10 +63,33 @@ class Stage:
 
 
     def get_configs(self):
-        with open('configs\configs.json', 'r',encoding="utf-8") as configs:
-            return json.load(configs)[self.stage_name]
+        '''
+        Brief:
+        Este método de clase lee y carga la configuración correspondiente a la etapa actual desde un archivo JSON.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        Un diccionario con la configuración de la etapa actual.
+        '''
+        try:
+
+            with open('configs\configs.json', 'r',encoding="utf-8") as configs:
+                return json.load(configs)[self.stage_name]
+        except Exception as e:
+            print(f"Error al cargar el archivo {str(e)}")
 
     def set_enemies(self)-> list[Enemy]:
+        '''
+        Brief:
+        Este método de clase crea y devuelve una lista de instancias de la clase Enemy, con configuraciones basadas en la información proporcionada en self.enemy_configs.
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        Una lista de instancias de la clase Enemy.
+        '''
         enemy_list = []
         for i in range(self.enemy_configs.get("Amount")):
             enemy_list.append(Enemy(enemy_animations["walk"][0],self.enemy_configs.get("Coords")[i],
@@ -75,6 +98,16 @@ class Stage:
         return enemy_list
 
     def set_coins(self)-> list[Reward]:
+        '''
+        Brief:
+        Este método de clase crea y devuelve una lista de instancias de la clase Reward (representando monedas en este contexto) con configuraciones basadas en la información proporcionada en self.stage_configs.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        Una lista de instancias de la clase Reward.
+        '''
         coin_configs = self.stage_configs.get("Items").get("Coins")
         coin_list = []
         for i in range(coin_configs.get("Amount")):
@@ -82,6 +115,16 @@ class Stage:
         return coin_list
 
     def set_platforms(self) -> list[Platform]:
+        '''
+        Brief:
+        Este método de clase crea y devuelve una lista de instancias de la clase Platform con configuraciones basadas en la información proporcionada en self.stage_configs.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        Una lista de instancias de la clase Platform.
+        '''
         platform_configs = self.stage_configs.get("Platforms")
         platform_list = []
         for i in range(platform_configs.get("Amount")): #platform_configs.get("Surface")
@@ -89,12 +132,31 @@ class Stage:
         return platform_list
 
     def set_traps(self)-> list[Trap]:
+        '''
+        Brief:
+        Este método de clase crea y devuelve una lista de instancias de la clase Trap con configuraciones basadas en la información proporcionada en self.trap_configs.
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        Una lista de instancias de la clase Trap.
+        '''
         trap_list = []
         for i in range(self.trap_configs.get("Amount")):
             trap_list.append(Trap(saw_animations["idle"][0],self.trap_configs.get("Coords")[i],saw_animations,0,self.trap_configs.get("Size"),self.trap_configs.get("Damage")))
         return trap_list
 
     def set_potions(self)-> list[Reward]:
+        '''
+        Brief:
+        Este método de clase crea y devuelve una lista de instancias de la clase Reward (representando pociones en este contexto) con configuraciones basadas en la información proporcionada en self.stage_configs.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        Una lista de instancias de la clase Reward.
+        '''
         potion_configs = self.stage_configs.get("Items").get("Potion")
         potion_list = []
         for i in range(potion_configs.get("Amount")):
@@ -102,17 +164,39 @@ class Stage:
         return potion_list
 
     def check_win(self):
+        '''
+        Brief:
+        Este método de clase verifica si el jugador ha ganado la etapa actual. La victoria se determina si no hay enemigos ni monedas restantes.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         match self.stage_name:
             case 'Stage_1' | 'Stage_2' | 'Stage_3':
                 if len(self.enemies) == 0 and len(self.coins) == 0:
                     self.win = True
-                    self.values.player_score[self.values.player_name][self.values.current_level] = self.player.score
+                    print(self.player.score)
+                    self.values.set_value_in_score_dict(self.player.score)
                     current_player_id = get_player_id(self.values.player_name) 
-                    update_row_in_db(current_player_id,self.values.obtain_total_score())
+                    total_score = self.values.obtain_total_score()
+                    update_row_in_db(current_player_id,total_score)
 
 
 
     def draw_debug_mode(self):
+        '''
+        Brief:
+        Este método de clase dibuja las formas de colisión de varios elementos del juego para facilitar el modo de depuración.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         for collider_side in self.player.colliders:
             pg.draw.rect(self.screen,"Purple",self.player.colliders[collider_side],2)
 
@@ -144,7 +228,17 @@ class Stage:
                 for side in projectile.colliders:
                     pg.draw.rect(self.screen,"Yellow",projectile.colliders[side],2)
 
-    def update_screen(self):
+    def update_screen(self): 
+        '''
+        Brief:
+        Este método de clase actualiza y muestra los elementos en la pantalla de juego, incluyendo puntuación, vida y tiempo.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         self.screen.blit(self.bgd_surface,(0,0))
 
         score_txt = self.font.render(f"Score: {self.player.score}",False,"Red")
@@ -168,10 +262,8 @@ class Stage:
                 self.player.score += self.score_enemies * random.randint(1,5)
                 self.enemies.remove(enemy)
             else:
-                if self.stage_name != "Stage_3":
                     enemy.update(self.screen,self.platforms,[self.player],self.sounds_volume)
-                else:
-                    enemy.update(self.screen,self.platforms,[self.player])
+        
         for trap in self.traps:
             trap.animate(trap.actions["idle"],1)
             trap.update(self.screen)
@@ -196,14 +288,44 @@ class Stage:
         self.screen.blit(timer_txt,(500,0))
 
     def update_volume(self):
+        '''
+        Brief:
+        Este método de clase actualiza el volumen de los sonidos del juego según el valor almacenado en self.values.sound_volume.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         self.sounds_volume = self.values.sound_volume
 
     def check_lost(self):
+        '''
+        Brief:
+        Este método de clase verifica si el jugador ha perdido la partida. La derrota se determina si la vida del jugador es igual o menor a cero, o si el tiempo llega a cero.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         if self.player.life <= 0 or self.time <= 0:
             self.lost = True
 
 
     def run(self):
+        '''
+        Brief:
+        Este método de clase ejecuta una iteración del bucle principal del juego, actualizando el volumen de los sonidos, verificando si el jugador ha perdido o ganado, y actualizando la pantalla.
+
+        Parametros:
+        No tiene parámetros.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         self.update_volume()
         self.check_lost()
         self.check_win()

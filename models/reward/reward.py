@@ -9,5 +9,14 @@ class Reward(Item):
         self.health = health
 
     def update(self,screen):
+        '''
+        Brief:
+        Este método de clase actualiza la instancia de la clase (en este contexto, una Reward del juego) en la pantalla si no ha ocurrido una colisión.
+        Parametros:
+        - screen: Objeto que representa la pantalla en la que se realiza la actualización.
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         if not self.colition:
                 super().update(screen)

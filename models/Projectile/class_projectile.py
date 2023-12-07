@@ -14,6 +14,18 @@ class Projectile(Item):
         self.who_created_it = who_created_it
 
     def check_collide(self,platform_list,projectile_list,enemy_list):
+        '''
+        Brief:
+        Este método de clase verifica si la instancia de la clase "Projectile" ha colisionado con elementos de la lista proporcionada de plataformas, proyectiles y enemigos. Realiza acciones específicas dependiendo del tipo de colisión.
+
+        Parametros:
+        - platform_list: Lista de instancias de la clase "Platform".
+        - projectile_list: Lista de instancias de la clase "Projectile".
+        - enemy_list: Lista de instancias de la clase "Enemy".
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         object_list = []
         for platform in platform_list:
             object_list.append(platform)
@@ -36,6 +48,19 @@ class Projectile(Item):
 
 
     def update(self, screen,platform_list,projectile_list,enemy_list):
+        '''
+        Brief:
+        Este método de clase actualiza la instancia de la clase "Projectile" en la pantalla, moviéndola según su velocidad y verificando colisiones con elementos de las listas proporcionadas de plataformas, proyectiles y enemigos. Además, se verifica si la instancia ha salido de los límites de la pantalla.
+
+        Parametros:
+        - screen: Objeto que representa la pantalla en la que se realiza la actualización.
+        - platform_list: Lista de instancias de la clase "Platform".
+        - projectile_list: Lista de instancias de la clase "Projectile".
+        - enemy_list: Lista de instancias de la clase "Enemy".
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         self.rect.x += self.speed
         self.rect.y += self.speed_y
         self.check_collide(platform_list,projectile_list,enemy_list)

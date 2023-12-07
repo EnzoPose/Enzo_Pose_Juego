@@ -24,6 +24,17 @@ class Object:
 
 
     def animate(self, animation_list,count_amountt):
+        '''
+        Brief:
+        Este método de clase anima el objeto cambiando su superficie en función de una lista de animaciones.
+
+        Parametros:
+        - animation_list: Lista de imágenes representando las animaciones.
+        - count_amount: Cantidad a incrementar en cada paso de la animación.
+
+        Retorno: 
+        No retorna ningún valor.
+        '''
         length = len(animation_list)
         if self.step_counter >= length:
             self.step_counter = 0
@@ -31,13 +42,46 @@ class Object:
         self.step_counter += count_amountt
 
     def move_x(self, speed):
+        '''
+        Brief:
+        Este método de clase mueve el objeto en el eje X ajustando las coordenadas de sus colisionadores.
+
+        Parametros:
+        - speed: Velocidad de movimiento en el eje X.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         for side in self.colliders:
             self.colliders[side].x += speed
     
     def update(self,screen):
+        '''
+        Brief:
+        Este método de clase actualiza la representación gráfica del objeto en la pantalla.
+
+        Parametros:
+        - screen: Superficie de la pantalla.
+
+        Retorno: 
+        No retorna ningún valor.
+
+        '''
         screen.blit(self.surface,self.rect)
 
     def obtain_rects(self,main:pygame.Rect,rect_diference_value)->dict:
+        '''
+        Brief:
+        Este método de clase obtiene un diccionario de rectángulos asociados a diferentes lados del objeto.
+
+        Parametros:
+        - main: Rectángulo principal.
+        - rect_diference_value: Valor de diferencia para ajustar los rectángulos adicionales.
+
+        Retorno: 
+        Diccionario con rectángulos asociados a diferentes lados del objeto.
+        '''
         dictionary = {}
         dictionary["main"] = main ##(left: float, top: float, width: float, height: float) -> None
         dictionary["bottom"] = pygame.Rect(main.left,main.bottom-rect_diference_value,main.width,rect_diference_value)

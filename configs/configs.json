@@ -113,7 +113,7 @@
             ]
         },
         "Player": {
-            "Life": 10000,
+            "Life": 100,
             "Damage": 25,
             "Size": [40,80],
             "Coords": [150,600]
@@ -222,7 +222,7 @@
             ]
         },
         "Player": {
-            "Life": 10000,
+            "Life": 100,
             "Damage": 25,
             "Size": [40,80],
             "Coords": [150,600]
@@ -238,7 +238,7 @@
             "Cadence": 1000,
             "Amount": 1,
             "Life": 1000,
-            "Damage": 30,
+            "Damage": 20,
             "Damage_colition":20,
             "Size": [100,100],
             "Coords": [550,550]
@@ -296,8 +296,8 @@
             ]
         },
         "Player": {
-            "Life": 10000,
-            "Damage": 25,
+            "Life": 100,
+            "Damage": 35,
             "Size": [40,80],
             "Coords": [150,600]
         }

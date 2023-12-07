@@ -2,4 +2,4 @@ from models.class_game.game import Game
 
 if __name__ == '__main__':
     game = Game()
-    game.run_game()
+    game.run_game() 
