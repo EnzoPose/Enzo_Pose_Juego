@@ -2,7 +2,7 @@
 #La clase fue creada con la finalidad de no utilizar variables globales
 class Values:
     def __init__(self) -> None:
-        self.music_volume = 0.1
+        self.music_volume = 0
         self.sound_volume = 0.2
         self.player_score = 0
 

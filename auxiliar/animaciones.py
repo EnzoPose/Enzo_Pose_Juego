@@ -23,3 +23,4 @@ enemy_animations["attack"],enemy_animations["attack_l"] = enemy_animations["atta
 coin_animations = obtain_animations(data_animations.get("Items").get("Coin"))
 saw_animations = obtain_animations(data_animations.get("Items").get("Saw"))
 potion_animations = obtain_animations(data_animations.get("Items").get("Potion"))
+boss_animations = obtain_animations(data_animations.get("Boss"))

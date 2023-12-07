@@ -235,41 +235,46 @@
             "background_music": "./assets/music/stage_1_bkg_music.mp3"
         },
         "Enemies": {
-            "Cadence": 1500,
+            "Cadence": 1000,
             "Amount": 1,
-            "Life": 500,
-            "Damage": 25,
+            "Life": 1500,
+            "Damage": 30,
             "Damage_colition":20,
             "Size": [100,100],
-            "Coords": [
-                [550,200]
-            ]
+            "Coords": [550,550]
         },
         "Items": {
             "Coins":{
-                "Amount": 2,
+                "Amount": 5,
                 "Score": 300,
                 "Size": [30,30],
                 "Coords": [
                     [80,350],
-                    [1160,350]
+                    [1160,350],
+                    [300,450],
+                    [600,450],
+                    [900,450]
                 ]
             },
             "Potion":{
                 "Health": 15,
-                "Amount": 1,
+                "Amount": 3,
                 "Size": [30,30],
                 "Coords": [
-                    [400,400]
+                    [80,440],
+                    [1160,440],
+                    [1160,600]
                 ]
             }
         },
         "Traps": {
-            "Amount":1,
+            "Amount":3,
             "Damage": 10,
             "Size":[40,40],
             "Coords": [
-                [600,600]
+                [600,600],
+                [600,560],
+                [600,520]
             ]
         },
         "Platforms":{
@@ -291,8 +296,8 @@
             ]
         },
         "Player": {
-            "Life": 10,
-            "Damage": 25,
+            "Life": 10000,
+            "Damage": 20,
             "Size": [40,80],
             "Coords": [150,600]
         }

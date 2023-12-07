@@ -1,6 +1,7 @@
 from models.object_game.Class_object import Object
 from models.Projectile.class_projectile import Projectile
 from auxiliar.configuraciones import resize_images
+from models.constantes import ANCHO_VENTANA
 import pygame as pg
 
 class Charapter(Object):
@@ -57,6 +58,16 @@ class Charapter(Object):
         super().move_x(self.speed_x)
 
 
+    def projectile_rain(self,image_path,size,who_created_it):
+        surface = pg.transform.scale(pg.image.load(image_path),size)
+        projectile_distance_x = ANCHO_VENTANA // 20
+
+        initial_x = 0
+        for i in range(19):
+            projectile = Projectile(surface,(initial_x + projectile_distance_x,0),None,0,size,self.damage,who_created_it)
+            projectile.speed_y = 20
+            initial_x += projectile_distance_x
+            self.projectile_list.append(projectile)
 
     def create_projectile(self,image_path,size,who_created_it):
         surface = pg.transform.scale(pg.image.load(image_path),size)

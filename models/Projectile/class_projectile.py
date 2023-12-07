@@ -9,6 +9,7 @@ class Projectile(Item):
     def __init__(self, surface: pygame.Surface, initial_position: tuple, actions: dict, rect_diference: int, size: tuple,damage,who_created_it):
         super().__init__(surface, initial_position, actions, 0, size)
         self.speed = 0
+        self.speed_y = 0
         self.damage = damage
         self.who_created_it = who_created_it
 
@@ -36,6 +37,7 @@ class Projectile(Item):
 
     def update(self, screen,platform_list,projectile_list,enemy_list):
         self.rect.x += self.speed
+        self.rect.y += self.speed_y
         self.check_collide(platform_list,projectile_list,enemy_list)
 
         if self.rect.x > ANCHO_VENTANA or self.rect.x < 0:

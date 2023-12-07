@@ -2,11 +2,12 @@ import json
 import pygame as pg
 from models.player.class_player import Player
 from models.Enemy.class_enemy import Enemy
+from models.Boss.class_boss import Boss
 from models.platform.class_patform import Platform
 from models.reward.reward import Reward
 from models.trap.trap import Trap
 from auxiliar.modo import *
-from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations,potion_animations
+from auxiliar.animaciones import player_animations,coin_animations,saw_animations,enemy_animations,potion_animations,boss_animations
 from models.constantes import ANCHO_VENTANA,ALTO_VENTANA
 from models.values import Values
 import random
@@ -46,7 +47,11 @@ class Stage:
         self.player = Player(player_animations["idle"][0],self.player_configs.get("Coords"),player_animations,10,self.player_configs.get("Size"),self.player_configs.get("Life"),
                             self.player_configs.get("Damage"))
 
-        self.enemies = self.set_enemies()
+        if self.stage_name != "Stage_3":
+            self.enemies = self.set_enemies() 
+        else:
+            self.enemies = [Boss(boss_animations["walk"][0],self.enemy_configs.get("Coords"),boss_animations,10,self.enemy_configs.get("Size"),
+                self.enemy_configs.get("Life"),self.enemy_configs.get("Damage"),self.enemy_configs.get("Cadence"),self.enemy_configs.get("Damage_colition"))]
         self.coins = self.set_coins()
         self.platforms = self.set_platforms()
         self.traps = self.set_traps()
@@ -158,8 +163,10 @@ class Stage:
                 self.player.score += 300 * random.randint(1,5)
                 self.enemies.remove(enemy)
             else:
-                enemy.update(self.screen,self.platforms,[self.player],self.sounds_volume)
-        
+                if self.stage_name != "Stage_3":
+                    enemy.update(self.screen,self.platforms,[self.player],self.sounds_volume)
+                else:
+                    enemy.update(self.screen,self.platforms,[self.player])
         for trap in self.traps:
             trap.animate(trap.actions["idle"],1)
             trap.update(self.screen)

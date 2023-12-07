@@ -53,7 +53,40 @@
             "assets\\img\\Enemy\\Attack\\4.png"
         ]
     },
-    "Boss": {},
+    "Boss": {
+        "walk":[
+            "assets\\img\\Boss\\Walk\\0.png",
+            "assets\\img\\Boss\\Walk\\1.png",
+            "assets\\img\\Boss\\Walk\\2.png",
+            "assets\\img\\Boss\\Walk\\3.png",
+            "assets\\img\\Boss\\Walk\\4.png",
+            "assets\\img\\Boss\\Walk\\5.png",
+            "assets\\img\\Boss\\Walk\\6.png",
+            "assets\\img\\Boss\\Walk\\7.png",
+            "assets\\img\\Boss\\Walk\\8.png",
+            "assets\\img\\Boss\\Walk\\9.png"
+        ],
+        "attack":[
+            "assets\\img\\Boss\\Attack\\0.png",
+            "assets\\img\\Boss\\Attack\\1.png",
+            "assets\\img\\Boss\\Attack\\2.png",
+            "assets\\img\\Boss\\Attack\\3.png",
+            "assets\\img\\Boss\\Attack\\4.png",
+            "assets\\img\\Boss\\Attack\\5.png",
+            "assets\\img\\Boss\\Attack\\6.png",
+            "assets\\img\\Boss\\Attack\\7.png"
+        ],
+        "attack_up":[
+            "assets\\img\\Boss\\Attack_up\\0.png",
+            "assets\\img\\Boss\\Attack_up\\1.png",
+            "assets\\img\\Boss\\Attack_up\\2.png",
+            "assets\\img\\Boss\\Attack_up\\3.png",
+            "assets\\img\\Boss\\Attack_up\\4.png",
+            "assets\\img\\Boss\\Attack_up\\5.png",
+            "assets\\img\\Boss\\Attack_up\\6.png",
+            "assets\\img\\Boss\\Attack_up\\7.png"
+        ]
+    },
     "Items": {
         "Coin":{
             "idle":[
